@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Status</title>
+</head>
+<body>
+    <p>Hi {{name}} ({{email}}),</p>
+
+    {{#if isActive}}
+        <p>Your account is active and in good standing.</p>
+        <p>You can login anytime here: <a href="{{login}}">Login</a></p>
+    {{else}}
+        <p>Your account is temporarily disabled.</p>
+        <p>You can enable it by contacting support:</p>
+        <p><a href="mailto:support@yourdomain.com?subject=Restore%20Account&body=Hello%20Support%2C%0AI%20would%20like%20to%20restore%20my%20account%20associated%20with%20this%20email%3A%20{{email}}.">Contact Support</a></p>
+    {{/if}}
+
+    <p>Thank you,<br>Support Team</p>
+</body>
+</html>
+

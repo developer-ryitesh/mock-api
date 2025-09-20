@@ -1,0 +1,351 @@
+openapi: 3.0.0
+info:
+  title: api
+  version: 1.0.0
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Auth
+  - name: User
+  - name: Admin
+  - name: Admin > users
+  - name: Notifications
+  - name: Collection
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: imuser@yopmail.com
+                password: user
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/logout:
+    get:
+      tags:
+        - Auth
+      summary: logout
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: imadmin@yopmail.com
+                password: admin
+                confirmPassword: admin
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/refresh-token:
+    get:
+      tags:
+        - Auth
+      summary: refresh-token
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/forgot-password:
+    post:
+      tags:
+        - Auth
+      summary: forgot-password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: imuser@yopmail.com
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/reset-password:
+    post:
+      tags:
+        - Auth
+      summary: reset-password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                otp: '319421'
+                newPassword: user
+                confirmPassword: user
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/session:
+    get:
+      tags:
+        - User
+      summary: session
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/update-profile:
+    put:
+      tags:
+        - User
+      summary: update-profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                fullName: ritesh goswami
+                bio: >-
+                  dnfkd bdfkjhljdjhfhdsjhfs
+                  dfksdhfjksdhbjfhsdjkfghjhdsbhfhdskfhjsdf
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/update-password:
+    put:
+      tags:
+        - User
+      summary: update-password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                oldPassword: '123'
+                newPassword: ryitesh94@
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /admin/users:
+    get:
+      tags:
+        - Admin > users
+      summary: users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /admin/invite-user:
+    post:
+      tags:
+        - Admin > users
+      summary: invite-user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: imuser@yopmail.com
+                password: user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /admin/users/{userId}:
+  delete:
+    tags:
+      - Admin Users
+    summary: Delete a user
+    operationId: deleteUser
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the user to delete
+    responses:
+      '200':
+        description: User deleted successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: User deleted
+      '404':
+        description: User not found
+      '401':
+        description: Unauthorized
+  /admin/user-status:
+    post:
+      tags:
+        - Admin > users
+      summary: status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: bV1seI3IGVKMgMuTiEoL
+                status: 'true'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /notification/all:
+    get:
+      tags:
+        - Notifications
+      summary: all
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /notification/subscribe:
+    post:
+      tags:
+        - Notifications
+      summary: subscribe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                deviceToken: '123'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /notification/read:
+    patch:
+      tags:
+        - Notifications
+      summary: read
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                ids:
+                  - n5qe1VpHZDdbr6mvMfkO
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /notification/push:
+    post:
+      tags:
+        - Notifications
+      summary: push
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                ids:
+                  - n7x3UKdtLW2reyim2BTQ
+                title: my n
+                body: lerfdfds dsfhjdskhfd
+                type: NOTIFICATION
+                priority: high
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /collections/44425061-39255a2f-bdcd-4b82-ba8a-cc137ec2f716:
+    get:
+      tags:
+        - Collection
+      summary: all
+      parameters:
+        - name: access_key
+          in: query
+          schema:
+            type: string
+          example: PMAT-01K3S14FPP0MT0T6PBNP3NZS83
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
