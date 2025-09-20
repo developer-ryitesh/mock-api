@@ -333,4 +333,19 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  
+  /collections/44425061-39255a2f-bdcd-4b82-ba8a-cc137ec2f716:
+    get:
+      tags:
+        - Collection
+      summary: all
+      parameters:
+        - name: access_key
+          in: query
+          schema:
+            type: string
+          example: PMAT-01K3S14FPP0MT0T6PBNP3NZS83
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
