@@ -97,8 +97,6 @@ class AuthController {
             return next(createHttpError.NotFound("User not found"));
          }
          const accessToken = jwt.createAccessToken({ id: user.id });
-         const newRefreshToken = jwt.createRefreshToken({ id: user.id });
-         jwt.setCookie("refreshToken", newRefreshToken)(res);
 
          res.status(200).json({
             message: "Token refreshed successfully",

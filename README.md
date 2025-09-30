@@ -1,6 +1,6 @@
 # Mock API
 
-https://api-6nsy.onrender.com api
+https://api-lytc.onrender.com api
 
 This is a mock API for a user authentication system.
 
