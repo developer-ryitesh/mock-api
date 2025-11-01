@@ -3,10 +3,6 @@ import AuthLayout from "./auth.layout";
 import NotFoundPage from "../404/page";
 import LoginPage from "./pages/login/login.page";
 
-const authModule = {
-   
-};
-
 export default function AuthModule() {
    return (
       <Routes>
