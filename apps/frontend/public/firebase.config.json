@@ -1,0 +1,13 @@
+{
+   "data": {
+      "config": {
+         "apiKey": "AIzaSyC3kvchSZgWP6d_io3DWLNzMNt620B12Lk",
+         "authDomain": "api-mock-2e3fa.firebaseapp.com",
+         "projectId": "api-mock-2e3fa",
+         "storageBucket": "api-mock-2e3fa.firebasestorage.app",
+         "messagingSenderId": "434065921365",
+         "appId": "1:434065921365:web:4bc54e6b09deefa62acbdc",
+         "vapidKey": "BCJ9QJt9ckStZSkwv-ep46Qvo1qAPmh-rTq-XjxDIv7Rwqg5qzLfmN1M_W8EI3O097jv4JJyBHZtUsr9-D3f_E8"
+      }
+   }
+}

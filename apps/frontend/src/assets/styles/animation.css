@@ -1,0 +1,31 @@
+/* custom.css here */
+.spin {
+   animation: spin 800ms linear infinite; /* Adjust duration, timing-function, and iteration count as needed */
+}
+.animate-indeterminate {
+  position: absolute;
+  animation: indeterminate 1.2s infinite linear;
+}
+
+@keyframes spin {
+   0% {
+      transform: rotate(0deg);
+   }
+   100% {
+      transform: rotate(360deg);
+   }
+}
+@keyframes indeterminate {
+  0% {
+    left: -40%;
+    width: 40%;
+  }
+  50% {
+    left: 20%;
+    width: 60%;
+  }
+  100% {
+    left: 100%;
+    width: 40%;
+  }
+}

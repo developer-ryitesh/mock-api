@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "./animation.css";
+@import "./ui.css";
+@import "./libs.css";
+@import "./custom.css";
+
+
+:root {
+  --primary: #c314e4;
+  --primary-foreground: #ffffff;
+}

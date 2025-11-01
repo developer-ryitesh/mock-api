@@ -1,0 +1,18 @@
+/* radio box */
+.radio{
+  position: relative;
+}
+input[type="radio"]:checked + .radio{
+    border-color: var(--color-primary);
+}
+input[type="radio"]:checked + .radio::after{
+    content: " ";
+    height: 11px;
+    width: 11px;
+    background: var(--color-primary);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+}

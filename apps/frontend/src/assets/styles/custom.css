@@ -1,0 +1,19 @@
+
+[data-badge] {
+   position: relative;
+}
+[data-badge]::before {
+   content: attr(data-badge);
+   position: absolute;
+   top: -10px;
+   right: -10px;
+   background: var(--primary);
+   height: 18px;
+   width: 18px;
+   display: flex;
+   color: white;
+   justify-content: center;
+   align-items: center;
+   border-radius: 50%;
+   font-size: 10px;
+}

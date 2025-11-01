@@ -1,0 +1,16 @@
+
+@theme {
+  /* Base colors */
+  --color-primary:   var(--primary); /* Pink / Purple */
+  --color-foreground: var(--primary-foreground);     /* White */
+
+  /* Extended accent colors */
+  --color-dark:      oklch(0.20 0.02 270); /* Deep grayish blue */
+  --color-secondary: oklch(0.65 0.06 250); /* Soft gray-blue */
+  --color-done:      oklch(0.65 0.18 150); /* Green */
+  --color-error:     oklch(0.62 0.25 30);  /* Red-orange */
+  --color-warn:      oklch(0.85 0.14 90);  /* Yellow */
+  --color-info:      oklch(0.70 0.18 220); /* Blue */
+}
+/*  --color-primary:   var(--primary); /* Pink / Purple */
+/*  --color-foreground: var(--primary-foreground);     /* White */ 
