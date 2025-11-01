@@ -1,9 +1,7 @@
-import { io, type Socket } from "socket.io-client";
-
 export default class Environment {
    private URL = Object.freeze({
       PRODUCTION: "/api/v1",
-      DEVELOPMENT: "/api/v1",
+      DEVELOPMENT: "http://localhost:8000/api/v1",
    });
 
    private BYPASS(param: boolean) {
@@ -19,17 +17,6 @@ export default class Environment {
          default:
             return new Environment().URL.DEVELOPMENT;
       }
-   }
-
-   static get SOCKET(): Socket {
-      let socket: Socket | null = null;
-      if (!socket) {
-         socket = io("http://localhost:4000", {
-            transports: ["websocket"], // recommended
-            // autoConnect: false, // connect manually
-         });
-      }
-      return socket;
    }
 
    static readonly PRODUCTION: boolean = location.hostname !== "localhost";

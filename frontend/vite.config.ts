@@ -11,10 +11,13 @@ export default defineConfig({
          "@": path.resolve(__dirname, "./src"),
       },
    },
-   server:{
-      port: 3000
+   build: {
+      outDir: path.resolve(__dirname, "../build/views"),
    },
-   preview:{
-      port:3000
-   }
+   server: {
+      port: 3000,
+   },
+   preview: {
+      port: 3000,
+   },
 });
