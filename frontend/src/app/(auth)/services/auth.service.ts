@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { IBuilder, IService } from "@/libs/redux/types";
 import type { IUser } from "@/types/User.type";
 import firebase from "@/libs/firebase/config";
+import type { ForgotPasswordDTO, ResetPasswordDTO, UpdateProfileDTO } from "../types/auth.dto";
 
 const initialState = {
    accessToken: localStorage.getItem("accessToken") || null,
@@ -15,6 +16,18 @@ const initialState = {
       data: null as null | IUser,
    },
    logout: {
+      isLoading: false,
+   },
+   forgotPassword: {
+      isLoading: false,
+   },
+   resetPassword: {
+      isLoading: false,
+   },
+   updateProfile: {
+      isLoading: false,
+   },
+   updatePassword: {
       isLoading: false,
    },
 };
@@ -41,6 +54,50 @@ class AuthService implements IService {
          });
          builder.addCase(this.api.rejected, (state) => {
             state.login.isLoading = false;
+         });
+      },
+   };
+
+   forgotPassword = {
+      api: createAsyncThunk("forgotPassword", async (body: ForgotPasswordDTO, thunkAPI) => {
+         try {
+            const { data } = await this.http.public.post("/auth/forgot-password", body);
+            return data;
+         } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+         }
+      }),
+      reducer(builder: IBuilder<typeof initialState>) {
+         builder.addCase(this.api.pending, (state) => {
+            state.forgotPassword.isLoading = true;
+         });
+         builder.addCase(this.api.fulfilled, (state) => {
+            state.forgotPassword.isLoading = false;
+         });
+         builder.addCase(this.api.rejected, (state) => {
+            state.forgotPassword.isLoading = false;
+         });
+      },
+   };
+
+   resetPassword = {
+      api: createAsyncThunk("resetPassword", async (body: ResetPasswordDTO, thunkAPI) => {
+         try {
+            const { data } = await this.http.public.post("/auth/reset-password", body);
+            return data;
+         } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+         }
+      }),
+      reducer(builder: IBuilder<typeof initialState>) {
+         builder.addCase(this.api.pending, (state) => {
+            state.resetPassword.isLoading = true;
+         });
+         builder.addCase(this.api.fulfilled, (state) => {
+            state.resetPassword.isLoading = false;
+         });
+         builder.addCase(this.api.rejected, (state) => {
+            state.resetPassword.isLoading = false;
          });
       },
    };
@@ -94,6 +151,27 @@ class AuthService implements IService {
       },
    };
 
+   updateProfile = {
+      api: createAsyncThunk("updateProfile", async (body: UpdateProfileDTO, thunkAPI) => {
+         try {
+            const { data } = await this.http.private.put("/user/update-profile", body);
+            return data;
+         } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+         }
+      }),
+      reducer(builder: IBuilder<typeof initialState>) {
+         builder.addCase(this.api.pending, (state) => {
+            state.updateProfile.isLoading = true;
+         });
+         builder.addCase(this.api.fulfilled, (state) => {
+            state.updateProfile.isLoading = false;
+         });
+         builder.addCase(this.api.rejected, (state) => {
+            state.updateProfile.isLoading = false;
+         });
+      },
+   };
    private slice = createSlice({
       name: "AuthService",
       initialState,
@@ -102,6 +180,9 @@ class AuthService implements IService {
          this.login.reducer(builder);
          this.session.reducer(builder);
          this.logout.reducer(builder);
+         this.forgotPassword.reducer(builder);
+         this.resetPassword.reducer(builder);
+         this.updateProfile.reducer(builder);
       },
    });
    reducer = this.slice.reducer;

@@ -125,23 +125,25 @@ class AuthController {
             userID: user.id,
             token: crypto.createHash("sha256").update(String(otp)).digest("hex"),
          });
-
+         const expDate: any = result.resetTokenExpDate;
          const data = {
             fullName: user.profile?.fullName || "User",
             otp: otp,
-            otpExpiresIn: result.resetTokenExpDate,
+            otpExpiresIn: Math.floor((expDate?._seconds * 1000 + expDate?._nanoseconds / 1e6 - Date.now()) / 1000),
          };
          await SendEmail({
             to: user.email,
             subject: "Forgot Password",
-            template:{
-               name:"forgot-password.mail",
-               context:data,
+            template: {
+               name: "forgot-password.mail",
+               context: data,
             },
          });
          res.status(201).json({
             message: "Otp send your email successfully",
-            data: {},
+            data: {
+               otpExpiresIn: data.otpExpiresIn,
+            },
             success: true,
          });
       } catch (error) {
@@ -160,10 +162,10 @@ class AuthController {
             return next(createHttpError.BadRequest("Password not matching"));
          }
          const convertOpt2Token = crypto.createHash("sha256").update(String(body.otp)).digest("hex");
-
          const tokenUser = await this.authRepository.verifyResetToken({
             token: convertOpt2Token,
          });
+
          if (!tokenUser) {
             return next(createHttpError.BadRequest("Invalid otp or expired!"));
          }
@@ -175,7 +177,7 @@ class AuthController {
          });
          res.status(200).json({
             success: true,
-            data:{},
+            data: {},
             message: "you are password successfully reset",
          });
       } catch (error) {

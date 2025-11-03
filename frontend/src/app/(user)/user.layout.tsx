@@ -14,12 +14,18 @@ import { authService } from "../(auth)/services/auth.service";
 import { Button } from "@/shared/ui";
 import { PushNotification } from "@/libs/firebase/components";
 import { useAppRouter } from "@/libs/router/hooks";
+import { TbUsersGroup } from "react-icons/tb";
 
 const links = [
    {
       to: "/overview",
       Icon: AiOutlineDashboard,
       label: "Dashboard",
+   },
+   {
+      to: "/users",
+      Icon: TbUsersGroup,
+      label: "Users",
    },
    {
       to: "/notification",

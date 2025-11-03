@@ -12,8 +12,8 @@ export function Card({ children, extra, heading, ...props }: Props) {
    return (
       <div {...props}>
          {heading && (
-            <div className="flex justify-between items-center">
-               <div>{heading}</div>
+            <div className="flex justify-between items-center mb-3">
+               <div className="text-lg">{heading}</div>
                <div>{extra}</div>
             </div>
          )}

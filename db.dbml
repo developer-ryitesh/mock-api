@@ -1,0 +1,208 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+// Diagram:https://dbdiagram.io/d/69064f3d6735e11170ca65da
+
+Enum ROLE {
+  SUPER_ADMIN
+  VENDOR
+  HR
+  MANAGER
+  TEAM_LEAD
+  EMPLOYEE
+  INTERN
+}
+
+Enum COMPANY_STATUS {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+Enum SPRINT_STATUS {
+  PLANNED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+Enum PRIORITY {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+Enum STORY_STATUS {
+  TODO
+  IN_PROGRESS
+  QA
+  DONE
+}
+
+Enum STORY_TYPE {
+  FEATURE
+  BUG
+  TASK
+  IMPROVEMENT
+}
+
+Enum SUBSCRIPTION_STATUS {
+  ACTIVE
+  EXPIRED
+  CANCELED
+  PENDING
+}
+
+Enum PAYMENT_METHOD {
+  CREDIT_CARD
+  PAYPAL
+  STRIPE
+  RAZORPAY
+  CASH
+}
+
+Table User {
+  id int [pk, increment]
+  username string
+  email string
+  password string
+  role ROLE
+  is_active boolen
+  is_verified boolen
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  addres int [ref: > UserAddress.id]
+  Company int [ref: > Company.id]
+}
+
+Table UserAddress {
+  id int [pk, increment]
+  street string
+  city string
+  state string
+  postal_code string
+  country string
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+Table Subscription {
+  id int [pk, increment]
+    plan_id int [ref: > Plan.id] // reference to a subscription plan
+  status SUBSCRIPTION_STATUS
+  payment_method PAYMENT_METHOD
+  transaction_id string [note: 'Payment gateway transaction reference']
+  auto_renew boolean [default: false]
+  start_date date
+  end_date date
+}
+
+Table Plan {
+  id int [pk, increment]
+  name string
+  description string
+  price decimal(10,2)
+  duration_in_days int
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+Table Company {
+  id int [pk, increment]
+  industry string
+  contact string
+  name string
+  logo_url string
+  website string
+  status COMPANY_STATUS
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  subscription  int [ref: > Subscription.id]
+}
+
+
+
+Table Designations {
+  id int [pk, increment]
+  user int [ref: > User.id]
+  company_id int [ref: > Company.id]
+  description text
+  department string // optional: e.g., "Engineering", "Sales"
+}
+
+table Project_Allocation {
+  id string
+  user_id int [ref: > User.id]
+  project_id int [ref: > Project.id]
+  start_date date
+  description string
+  end_date date
+}
+Table Company_Address {
+  id int [pk, increment]
+  is_default boolean
+  company_id int [ref: > Company.id]
+  street string
+  city string
+  state string
+  postal_code string
+  country string
+  latitude decimal(10,8) // optional: for map/GPS
+  longitude decimal(11,8)
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+Table Project {
+  id int [pk, increment]
+  company_id int [ref: > Company.id]
+  name string
+  description text
+  start_date date
+  end_date date
+  tech_stack string
+  progress int [default: 0]
+  release_plan date
+  platform string
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+Table Sprint {
+  id int [pk, increment]
+  project_id int [ref: > Project.id] // sprint belongs to a project
+  name string [not null] // e.g. "Sprint 1 - November 2025"
+  goal text
+  start_date date [not null]
+  end_date date [not null]
+  status SPRINT_STATUS [default: 'PLANNED']
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+Table Feature {
+  id int [pk, increment]
+  name string
+  description string
+  notes string
+  project_id int [ref: > Project.id]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+Table Story {
+  id int [pk, increment]
+  assigned_to int [ref: > User.id]
+  project_id int [ref: > Project.id]
+  feature_id int [ref: > Feature.id]
+  sprint_id int [ref: > Sprint.id]
+  name string
+  description string
+  priority PRIORITY
+  status STORY_STATUS
+  type STORY_TYPE
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+
+Ref: "Sprint"."id" < "Sprint"."project_id"

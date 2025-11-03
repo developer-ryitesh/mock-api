@@ -3,7 +3,9 @@
    "version": "1.0.0",
    "main": "index.js",
    "scripts": {
-      "dev": "cross-env NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
+      "dev:backend": "cross-env NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
+      "dev:frontend": "npm run dev --prefix frontend",
+      "dev": "npm run dev:backend && npm run dev:frontend",
       "build:frontend": "npm install --prefix frontend && npm run build --prefix frontend",
       "build:backend": "npm install && tsc -p tsconfig.build.json",
       "build": "npm run build:backend && npm run build:frontend",

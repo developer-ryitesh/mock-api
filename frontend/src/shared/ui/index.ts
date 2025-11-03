@@ -1,3 +1,4 @@
+export { Skeleton } from "./skeleton";
 export { Dropdown } from "./dropdown.ui";
 export { Otp } from "./input-otp.ui";
 export { Indicator } from "./indicator.ui";
