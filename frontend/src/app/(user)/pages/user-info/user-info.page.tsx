@@ -80,7 +80,7 @@ export default function UserInfoPage() {
                         <Card heading="Remove Account" className="mt-3">
                            <p className="text-sm text-gray-500">Permanently delete your account and all data.</p>
                            <div className="flex justify-end">
-                              <Button type="submit" className="text-xs capitalize bg-red-500">
+                              <Button type="button" className="text-xs capitalize bg-red-500" loading={ctrl.deleteUser.isLoading} onClick={() => ctrl.onDeleteUser(user?.id)}>
                                  Remove
                               </Button>
                            </div>

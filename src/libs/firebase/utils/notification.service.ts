@@ -45,16 +45,14 @@ export class FirebaseNotification {
             .filter((user) => user.deviceToken) // ignore users without tokens
             .map((user) => ({
                token: user.deviceToken!,
-               notification: {title: this.payload.title, body: this.payload.body },
-               data: { date: new Date().toISOString(), url: this.payload.url || "",
-                  notificationId: uuidv4(), ...this.payload.data,
-               },
+               notification: { title: this.payload.title, body: this.payload.body },
+               data: { date: new Date().toISOString(), url: this.payload.url || "", notificationId: uuidv4(), ...this.payload.data },
                android: { priority: this.payload.priority },
                apns: { headers: { "apns-priority": "10" } },
                webpush: { headers: { Urgency: this.payload.priority } },
             }));
-         const send = firebase.admin.messaging().send;
-         const res = await Promise.all(messages.map((message) => send(message)));
+         const admin = firebase.admin;
+         const res = await Promise.all(messages.map((message) => admin.messaging().send(message)));
          return res;
       } catch (error) {
          console.error("Firebase send error:", error);

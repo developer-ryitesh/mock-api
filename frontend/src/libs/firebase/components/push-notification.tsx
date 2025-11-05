@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/libs/redux/hooks";
 import { notificationService } from "@/app/(notification)/services/notification.service";
 import { Button } from "@/shared/ui";
 
-export function PushNotification() {
+export function PushNotification({ onRefresh }: { onRefresh?: () => void }) {
    const [permission, setPermission] = useState(Notification.permission);
    const cachesdDeviceToken = localStorage.getItem("deviceToken");
    const isEnable = permission !== "granted" && permission !== "denied";
@@ -30,14 +30,15 @@ export function PushNotification() {
    }, [permission, cachesdDeviceToken]);
 
    useEffect(() => {
-      const unsubscribe = firebase.onMessage(firebase.messaging, async (payload) =>
+      const unsubscribe = firebase.onMessage(firebase.messaging, async (payload) => {
+         onRefresh?.();
          snackbar({
             title: payload?.notification?.title || "",
             body: payload?.notification?.body || "",
             type: "NOTIFICATION",
             action: { label: "dismiss", onClick: () => null },
-         })
-      );
+         });
+      });
       return unsubscribe;
    }, []);
 

@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { IBuilder, IService } from "@/libs/redux/types";
 import type { IUser } from "@/types/User.type";
 import firebase from "@/libs/firebase/config";
-import type { ForgotPasswordDTO, ResetPasswordDTO, UpdateProfileDTO } from "../types/auth.dto";
+import type { ForgotPasswordDTO, ResetPasswordDTO, UpdatePasswordDTO, UpdateProfileDTO } from "../types/auth.dto";
 
 const initialState = {
    accessToken: localStorage.getItem("accessToken") || null,
@@ -172,6 +172,28 @@ class AuthService implements IService {
          });
       },
    };
+
+   updatePassword = {
+      api: createAsyncThunk("updatePassword", async (body: UpdatePasswordDTO, thunkAPI) => {
+         try {
+            const { data } = await this.http.private.put("/user/update-password", body);
+            return data;
+         } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+         }
+      }),
+      reducer(builder: IBuilder<typeof initialState>) {
+         builder.addCase(this.api.pending, (state) => {
+            state.updatePassword.isLoading = true;
+         });
+         builder.addCase(this.api.fulfilled, (state) => {
+            state.updatePassword.isLoading = false;
+         });
+         builder.addCase(this.api.rejected, (state) => {
+            state.updatePassword.isLoading = false;
+         });
+      },
+   };
    private slice = createSlice({
       name: "AuthService",
       initialState,
@@ -183,6 +205,7 @@ class AuthService implements IService {
          this.forgotPassword.reducer(builder);
          this.resetPassword.reducer(builder);
          this.updateProfile.reducer(builder);
+         this.updatePassword.reducer(builder);
       },
    });
    reducer = this.slice.reducer;

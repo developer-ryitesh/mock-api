@@ -12,4 +12,9 @@ type UpdateProfileDTO = {
    fullName: string;
    bio?: string;
 };
-export type { ForgotPasswordDTO, ResetPasswordDTO, UpdateProfileDTO };
+
+type UpdatePasswordDTO = {
+   oldPassword: string;
+   newPassword: string;
+};
+export type { ForgotPasswordDTO, ResetPasswordDTO, UpdateProfileDTO, UpdatePasswordDTO };

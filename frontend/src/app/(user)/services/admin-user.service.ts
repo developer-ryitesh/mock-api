@@ -19,6 +19,9 @@ const initialState = {
    userStatus: {
       isLoading: false,
    },
+   deleteUser: {
+      isLoading: false,
+   },
 };
 
 class AdminUserService implements IService {
@@ -73,7 +76,7 @@ class AdminUserService implements IService {
    getSingleUser = {
       api: createAsyncThunk("!getSingleUser", async (id: string, thunkAPI) => {
          try {
-            const { data } = await this.http.private.get("/admin/users/" + id);
+            const { data } = await this.http.private.get(`/admin/users/${id}`);
             return data;
          } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -117,6 +120,29 @@ class AdminUserService implements IService {
          });
       },
    };
+
+   deleteUser = {
+      api: createAsyncThunk("deleteUser", async (id: string, thunkAPI) => {
+         try {
+            const { data } = await this.http.private.delete(`/admin/users/${id}`);
+            return data;
+         } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+         }
+      }),
+      reducer(builder: IBuilder<typeof initialState>) {
+         builder.addCase(this.api.pending, (state) => {
+            state.deleteUser.isLoading = true;
+         });
+         builder.addCase(this.api.fulfilled, (state) => {
+            state.deleteUser.isLoading = false;
+         });
+         builder.addCase(this.api.rejected, (state) => {
+            state.deleteUser.isLoading = false;
+         });
+      },
+   };
+
    private slice = createSlice({
       name: "AdminUserService",
       initialState,
@@ -126,6 +152,7 @@ class AdminUserService implements IService {
          this.getSingleUser.reducer(builder);
          this.inviteUser.reducer(builder);
          this.userStatus.reducer(builder);
+         this.deleteUser.reducer(builder);
       },
    });
    reducer = this.slice.reducer;

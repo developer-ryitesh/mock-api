@@ -90,8 +90,8 @@ function List({ loading, dataList, colums, pagination, height = "auto" }: Props)
                         ) : (
                            <tr>
                               <td colSpan={colums?.length}>
-                                 <div className="flex flex-col items-center justify-center space-y-2 border py-5 h-56">
-                                    <img src="/images/no-data.image.svg" alt="no-data" width={100} />
+                                 <div className="flex flex-col items-center justify-center space-y-2 py-5 h-56">
+                                    <img src="/images/no-data.image.svg" alt="no-data" width={160} />
                                     <p>No data found.</p>
                                  </div>
                               </td>

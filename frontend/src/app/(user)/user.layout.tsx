@@ -15,6 +15,7 @@ import { Button } from "@/shared/ui";
 import { PushNotification } from "@/libs/firebase/components";
 import { useAppRouter } from "@/libs/router/hooks";
 import { TbUsersGroup } from "react-icons/tb";
+import { notificationService } from "../(notification)/services/notification.service";
 
 const links = [
    {
@@ -67,7 +68,9 @@ export default function UserLayout() {
                      </div>
                   </div>
                   <div className="p-2">
-                     <PushNotification />
+                     <PushNotification //
+                        onRefresh={() => dispatch(notificationService.getAllNotifications.api())}
+                     />
                      {links.map(({ to, Icon, label }) => (
                         <RouterLink
                            key={to}

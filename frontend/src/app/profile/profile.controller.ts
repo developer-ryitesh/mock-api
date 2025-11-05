@@ -1,4 +1,5 @@
 import { authService } from "@/app/(auth)/services/auth.service";
+import type { IFormikSubmit } from "@/libs/formik";
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
 
 export default function useProfileController() {
@@ -17,11 +18,10 @@ export default function useProfileController() {
       }
    };
 
-   const onPasswordUpdate = async (payload: any) => {
+   const onPasswordUpdate: IFormikSubmit = async (payload: any, formikHelpers) => {
       try {
-         console.log(payload);
-
-         //  await dispatch(authService.updatePassword.api(payload)).unwrap();
+         await dispatch(authService.updatePassword.api(payload)).unwrap();
+         formikHelpers?.resetForm();
       } catch (error) {
          return;
       }

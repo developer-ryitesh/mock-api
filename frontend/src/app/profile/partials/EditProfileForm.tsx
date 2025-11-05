@@ -1,25 +1,41 @@
+import type { IFormComponent } from "@/libs/formik";
 import { Button, Textarea, TextField } from "@/shared/ui";
+import type { IProfile } from "@/types/User.type";
+import { Form, Formik } from "formik";
 
-export default function EditProfileForm() {
+type Props = IFormComponent<IProfile>;
+export default function EditProfileForm({ onSubmit, patchValues, loading }: Props) {
+   const [first_name, last_name] = patchValues?.fullName?.split(" ") || "";
+   const fields = {
+      first_name: first_name || "",
+      last_name: last_name || "",
+      bio: patchValues?.bio || "",
+   };
    return (
-      <form className="grid grid-cols-12 gap-3">
-         <div className="col-span-12">
-            <div className="flex justify-between items-center">
-               <span className="font-medium text-[17px]">Edit Profile</span>
-            </div>
-         </div>
-         <div className="col-span-12 sm:col-span-6">
-            <TextField label="First Name" name="first_name" />
-         </div>
-         <div className="col-span-12 sm:col-span-6">
-            <TextField label="Last Name" name="last_name" />
-         </div>
-         <div className="col-span-12">
-            <Textarea label="Bio" name="bio" />
-         </div>
-         <div className="col-span-12  text-end">
-            <Button type="submit">Update Profile</Button>
-         </div>
-      </form>
+      <Formik initialValues={fields} onSubmit={onSubmit}>
+         {(formik) => (
+            <Form className="grid grid-cols-12 gap-3">
+               <div className="col-span-12">
+                  <div className="flex justify-between items-center">
+                     <span className="font-medium text-[17px]">Edit Profile</span>
+                  </div>
+               </div>
+               <div className="col-span-12 sm:col-span-6">
+                  <TextField {...formik.getFieldProps("first_name")} label="First Name" />
+               </div>
+               <div className="col-span-12 sm:col-span-6">
+                  <TextField {...formik.getFieldProps("last_name")} label="Last Name" />
+               </div>
+               <div className="col-span-12">
+                  <Textarea {...formik.getFieldProps("bio")} label="Bio" />
+               </div>
+               <div className="col-span-12  text-end">
+                  <Button type="submit" loading={loading}>
+                     Update Profile
+                  </Button>
+               </div>
+            </Form>
+         )}
+      </Formik>
    );
 }
