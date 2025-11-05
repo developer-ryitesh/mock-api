@@ -36,6 +36,7 @@ type Props = React.ComponentProps<"span"> & {
    accent?: keyof typeof BADGE.variants.default;
    variant?: keyof typeof BADGE.variants;
    size?: keyof typeof BADGE.size;
+   color?: string;
 };
 
 function Badge({
@@ -43,6 +44,7 @@ function Badge({
    accent = "primary",
    variant = "default",
    size = "md",
+   color,
    ...props
 }: Props) {
    return (

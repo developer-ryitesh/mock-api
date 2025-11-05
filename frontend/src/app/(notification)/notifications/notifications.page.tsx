@@ -27,11 +27,28 @@ export default function NotificationPage() {
                      <button key={`notification-${idx}`} className="w-full border border-gray-200 rounded-md p-3 bg-white mb-2">
                         <div className="flex items-center justify-between">
                            <h3 className="text-md font-semibold text-gray-800 hover:underline">{notification.title}</h3>
-                           <Badge size="sm">{notification.priority}</Badge>
+                           {notification.priority === "high" && (
+                              <Badge //
+                                 size="sm"
+                                 variant="outline"
+                                 accent="error">
+                                 {notification.priority}
+                              </Badge>
+                           )}
+                           {notification.priority === "normal" && (
+                              <Badge //
+                                 size="sm"
+                                 variant="outline"
+                                 accent="secondary">
+                                 {notification.priority}
+                              </Badge>
+                           )}
                         </div>
                         <p className="text-sm text-gray-600 mb-2 text-start">{notification.body}</p>
                         <div className="flex items-center gap-3">
-                           <Badge size="sm">{notification.type}</Badge>
+                           <Badge size="sm" variant="outline">
+                              {notification.type}
+                           </Badge>
                            <span>•</span>
                            <span className="text-xs">
                               {moment().diff(moment(notification.createdAt), "days") > 1 ? moment(notification.createdAt).format("DD MMM YYYY") : moment(notification.createdAt).fromNow()}

@@ -1,6 +1,6 @@
 import { authReducer } from "./(auth)/services/auth.service";
 import { notificationReducer } from "./(notification)/services/notification.service";
-import { adminReducer } from "./(user)/user.module";
+import { adminReducer } from "./(admin)/admin.module";
 
 export default {
    redux: {

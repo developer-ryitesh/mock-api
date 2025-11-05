@@ -19,27 +19,27 @@ import { notificationService } from "../(notification)/services/notification.ser
 
 const links = [
    {
-      to: "/overview",
+      to: "/admin/overview",
       Icon: AiOutlineDashboard,
       label: "Dashboard",
    },
    {
-      to: "/users",
+      to: "/admin/users",
       Icon: TbUsersGroup,
       label: "Users",
    },
    {
-      to: "/notification",
+      to: "/admin/notification",
       Icon: IoIosNotifications,
       label: "Notification",
    },
    {
-      to: "/settings",
+      to: "/admin/settings",
       Icon: CiSettings,
       label: "Settings",
    },
 ];
-export default function UserLayout() {
+export default function AdminLayout() {
    const asideRef = useRef<any>(null);
    const router = useAppRouter();
    const screen = useMediaQuery();
@@ -59,7 +59,7 @@ export default function UserLayout() {
          collapsibleWidth="65px"
          position="left"
          AsideComponent={(props) => (
-            <aside className="flex-shrink-0 relative">
+            <aside className="shrink-0 relative">
                <div style={{ height: "calc(100vh - 59px)" }}>
                   <div className="h-[58px] bg-white px-5 flex items-center border-gray-300 border-b border-r">
                      <div>
