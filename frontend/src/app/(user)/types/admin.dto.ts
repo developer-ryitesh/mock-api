@@ -2,5 +2,8 @@ interface InviteUserDTO {
    email: string;
    password: string;
 }
-
-export type { InviteUserDTO };
+interface UserStatusDTO {
+   id: string;
+   status: "true" | "false";
+}
+export type { InviteUserDTO, UserStatusDTO };

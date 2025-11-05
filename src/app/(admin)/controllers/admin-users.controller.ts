@@ -7,7 +7,7 @@ import { SendEmail } from "../../../libs/mail/utils";
 import CONFIG from "../../../config";
 
 class AdminUsersController {
-   constructor(private adminUserRepository: AdminUserRepository) { }
+   constructor(private adminUserRepository: AdminUserRepository) {}
 
    geAllUsers: RequestHandler = async (req, res, next) => {
       try {
@@ -15,6 +15,26 @@ class AdminUsersController {
          res.status(200).json({
             success: true,
             data: { users },
+            message: "Users fetch!",
+         });
+      } catch (error) {
+         next(error);
+      }
+   };
+
+   geUserById: RequestHandler = async (req, res, next) => {
+      try {
+         const id = req.params?.id;
+         if (!id) {
+            return next(createHttpError.BadRequest("id required"));
+         }
+         const user = await this.adminUserRepository.findUserByID(id);
+         if (!user) {
+            return next(createHttpError.NotFound("User not found!"));
+         }
+         res.status(200).json({
+            success: true,
+            data: { user },
             message: "Users fetch!",
          });
       } catch (error) {
@@ -43,13 +63,13 @@ class AdminUsersController {
             const data = {
                email: body.email,
                password: body.password,
-               login_link: `${CONFIG.HAS_PROD ? CONFIG.SERVER_URL : CONFIG.DEV_URL}/auth/login`
-            }
+               login_link: `${CONFIG.HAS_PROD ? CONFIG.SERVER_URL : CONFIG.DEV_URL}/auth/login`,
+            };
             await SendEmail({
                to: body.email,
                subject: "welcome mail",
-               template: { name: "welcome.mail", context: data }
-            })
+               template: { name: "welcome.mail", context: data },
+            });
          }
          res.status(200).json({
             success: true,
@@ -104,17 +124,19 @@ class AdminUsersController {
                name: updateUser.profile?.fullName || "User",
                email: updateUser.email,
                isActive: updateUser.isActive,
-               login: "https://yourdomain.com/login"
+               login: "https://yourdomain.com/login",
             };
             await SendEmail({
                to: updateUser.email, //
                subject: "Account Status",
-               template: { name: "account-status.mail", context: data }
-            })
+               template: { name: "account-status.mail", context: data },
+            });
          }
          res.status(200).json({
             success: true,
-            data: {},
+            data: {
+               status: updateUser.isActive,
+            },
             message: `User (${user.email}) is ${updateUser?.isActive ? "Enable" : "Disable"}!`,
          });
       } catch (error) {

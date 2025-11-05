@@ -19,8 +19,8 @@ export default function InviteUserForm({ loading, onSubmit, ModalButton }: Props
 
    return (
       <div>
-         <ModalButton onOpen={() => null} />
-         <Modal ref={modalRef}>
+         <ModalButton onOpen={() => modalRef.current?.setToggle(true)} />
+         <Modal ref={modalRef} size="lg">
             <Formik
                initialValues={fields}
                onSubmit={(values, formikHelpers) => {
@@ -47,7 +47,7 @@ export default function InviteUserForm({ loading, onSubmit, ModalButton }: Props
                               <ErrorMessageFormik name="password" />
                            </div>
                            <div className="flex justify-end items-center gap-3">
-                              <Button type="button" variant="outline">
+                              <Button type="button" variant="outline" onClick={() => modalRef.current?.setToggle(false)}>
                                  Close
                               </Button>
                               <Button type="submit" loading={loading}>

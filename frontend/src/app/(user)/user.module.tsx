@@ -8,6 +8,7 @@ import ProfilePage from "../profile/page";
 import UsersPage from "./pages/users/users.page";
 import { adminUserReducer } from "./services/admin-user.service";
 import { combineReducers } from "@reduxjs/toolkit";
+import UserInfoPage from "./pages/user-info/user-info.page";
 
 export const adminReducer = combineReducers({
    user: adminUserReducer,
@@ -22,6 +23,8 @@ export default function UserModule() {
             <Route path="settings" element={<SettingsPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="users" element={<UsersPage />} />
+            <Route path="users/:id" element={<UserInfoPage />} />
+
             <Route path="*" element={<NotFoundPage />} />
          </Route>
       </Routes>

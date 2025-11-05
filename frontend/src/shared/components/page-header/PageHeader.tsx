@@ -10,7 +10,7 @@ type props = {
 
 function PageHeader({ subtitle, title, extra }: props) {
    return (
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-3">
          <div className="flex gap-3 items-center">
             <Link to="../" replace>
                <IoMdArrowBack size={20} className="cursor-pointer" />

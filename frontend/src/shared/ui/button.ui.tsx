@@ -4,7 +4,7 @@ import { cn } from "../utils";
 const BUTTON = {
    variants: {
       default: {
-         primary: "bg-primary text-foreground hover:bg-primary",
+         primary: "bg-primary text-foreground",
          secondary: "bg-secondary text-white hover:bg-gray-600",
          done: "bg-done text-white hover:bg-green-600",
          error: "bg-error text-white hover:bg-red-600",

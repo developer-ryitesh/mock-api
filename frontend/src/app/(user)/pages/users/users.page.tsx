@@ -4,7 +4,9 @@ import type { ReactNode } from "react";
 import { Card, PageHeader } from "@/shared/components";
 import InviteUserForm from "./partials/InviteUserForm";
 import { Table } from "@/shared/components/table/table";
-import { Badge, Button, Switch } from "@/shared/ui";
+import { Badge, Button } from "@/shared/ui";
+import { Link } from "react-router";
+import moment from "moment";
 
 const HelmetContainer = ({ children }: { children: ReactNode }) => (
    <>
@@ -62,10 +64,12 @@ export default function UsersPage() {
                               No
                            </Badge>
                         ),
-                        createdAt: <span className="text-[11px] font-normal">{user.createdAt}</span>,
+                        createdAt: <span className="text-[11px] font-normal">{moment(user?.createdAt).format("DD MMM YYYY")}</span>,
                         more: (
                            <>
-                              <Switch eleSize="sm" />
+                              <Link to={user.id} className="text-sm underline">
+                                 View
+                              </Link>
                            </>
                         ),
                      };
