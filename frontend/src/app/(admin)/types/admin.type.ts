@@ -1,3 +1,5 @@
+import type { IProfile } from "@/types/User.type";
+
 interface IUser {
    id: string;
    email: string;
@@ -6,5 +8,6 @@ interface IUser {
    isActive: boolean;
    deviceToken: string;
    updatedAt: string;
+   profile: IProfile;
 }
 export type { IUser };

@@ -21,12 +21,12 @@ export default function NotificationPage() {
       <HelmetContainer>
          <div className="p-3">
             <PageHeader title="Notification" subtitle="Home / Notification" />
-            <div className="grid grid-cols-12">
-               <Card className="col-span-12 md:col-span-7 flex-col h-[74vh] lg:h-[76vh]">
+            <div className="grid grid-cols-12 gap-4">
+               <div className="col-span-12 md:col-span-7 flex-col h-[74vh] lg:h-[76vh]">
                   {notifications?.map((notification, idx) => (
-                     <button key={`notification-${idx}`} className="w-full border border-gray-200 rounded-md p-3 bg-white mb-2">
+                     <button key={`notification-${idx}`} className="w-full border border-gray-200 rounded-md p-4 bg-white mb-2">
                         <div className="flex items-center justify-between">
-                           <h3 className="text-md font-semibold text-gray-800 hover:underline">{notification.title}</h3>
+                           <h3 className="text-sm font-semibold text-gray-800 hover:underline">{notification.title}</h3>
                            {notification.priority === "high" && (
                               <Badge //
                                  size="sm"
@@ -44,7 +44,7 @@ export default function NotificationPage() {
                               </Badge>
                            )}
                         </div>
-                        <p className="text-sm text-gray-600 mb-2 text-start">{notification.body}</p>
+                        <p className="text-xs text-gray-600 mb-2 text-start">{notification.body}</p>
                         <div className="flex items-center gap-3">
                            <Badge size="sm" variant="outline">
                               {notification.type}
@@ -68,7 +68,18 @@ export default function NotificationPage() {
                         )}
                      </React.Fragment>
                   )}
-               </Card>
+               </div>
+               <div className="col-span-12 md:col-span-5">
+                  <Card heading="New Message">
+                     <p className="text-sm text-gray-600 mb-2 text-start">Server maintenance scheduled for 10 PM tonight.</p>
+                     <div className="mt-3 p-3 bg-gray-50 rounded-md min-h-[200px]">
+                        <p className="text-xs text-gray-600 mb-2 text-start">
+                           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem laudantium blanditiis necessitatibus enim culpa. Quos esse quam iure itaque et necessitatibus beatae
+                           magnam unde repellat, dolores qui fuga architecto id!
+                        </p>
+                     </div>
+                  </Card>
+               </div>
             </div>
          </div>
       </HelmetContainer>

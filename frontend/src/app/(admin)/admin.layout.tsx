@@ -77,7 +77,7 @@ export default function AdminLayout() {
                            to={to}
                            className={`w-full text-[13px] py-2 px-3 rounded-[7px]  gap-2 mb-1 flex items-center ${props.isToggle || screen.sm ? "" : "justify-center"}`}
                            activeClassName="bg-[#D9FFF7] font-semibold">
-                           <Icon size={17} /> {props.isToggle || screen.sm ? label : ""}
+                           <Icon size={19} strokeWidth={1} /> {props.isToggle || screen.sm ? label : ""}
                         </RouterLink>
                      ))}
                   </div>
@@ -97,7 +97,7 @@ export default function AdminLayout() {
                <span className="font-bold text-[20px] block md:hidden">TraceYards</span>
             </span>
             <div className="flex items-center gap-2">
-               <button className="cursor-pointer" onClick={() => router.replace("/profile")}>
+               <button className="cursor-pointer" onClick={() => router.replace("/admin/profile")}>
                   <img src="/images/avartar.png" alt="" width={28} height={28} className="block rounded-full border" />
                </button>
                <span className="px-2">|</span>

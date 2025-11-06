@@ -17,4 +17,9 @@ type UpdatePasswordDTO = {
    oldPassword: string;
    newPassword: string;
 };
-export type { ForgotPasswordDTO, ResetPasswordDTO, UpdateProfileDTO, UpdatePasswordDTO };
+
+type LoginDTO = {
+   email: string;
+   password: string;
+};
+export type { LoginDTO, ForgotPasswordDTO, ResetPasswordDTO, UpdateProfileDTO, UpdatePasswordDTO };

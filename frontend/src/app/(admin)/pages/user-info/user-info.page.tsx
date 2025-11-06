@@ -39,23 +39,31 @@ export default function UserInfoPage() {
                               )
                            }>
                            {/* Body */}
-                           <div>
-                              <div className="mb-3">
+                           <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                 <label className="block text-xs text-gray-500 mb-1">fullName</label>
+                                 <div className="text-sm text-gray-800">{user?.profile?.fullName || "-"}</div>
+                              </div>
+                              <div>
+                                 <label className="block text-xs text-gray-500 mb-1">bio</label>
+                                 <div className="text-sm text-gray-800">{user?.profile?.bio || "-"}</div>
+                              </div>
+                              <div>
                                  <label className="block text-xs text-gray-500 mb-1">Email</label>
                                  <div className="text-sm text-gray-800">{user?.email}</div>
                               </div>
 
-                              <div className="mb-3">
+                              <div>
                                  <label className="block text-xs text-gray-500 mb-1">Role</label>
                                  <div className="text-sm text-gray-800">{user?.role}</div>
                               </div>
 
-                              <div className="mb-3">
+                              <div>
                                  <label className="block text-xs text-gray-500 mb-1">Created</label>
                                  <div className="text-sm text-gray-800">{moment(user?.createdAt).format("DD MMM YYYY")}</div>
                               </div>
 
-                              <div className="mb-3">
+                              <div>
                                  <label className="block text-xs text-gray-500 mb-1">Updated</label>
                                  <div className="text-sm text-gray-800">{moment(user?.createdAt).format("DD MMM YYYY")}</div>
                               </div>

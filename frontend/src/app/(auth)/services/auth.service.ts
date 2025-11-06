@@ -1,10 +1,9 @@
 import HttpClient from "@/libs/interceptors";
-import type { LoginPaylaod } from "../types/auth.type";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { IBuilder, IService } from "@/libs/redux/types";
 import type { IUser } from "@/types/User.type";
 import firebase from "@/libs/firebase/config";
-import type { ForgotPasswordDTO, ResetPasswordDTO, UpdatePasswordDTO, UpdateProfileDTO } from "../types/auth.dto";
+import type { ForgotPasswordDTO, LoginDTO, ResetPasswordDTO, UpdatePasswordDTO, UpdateProfileDTO } from "../types/auth.dto";
 
 const initialState = {
    accessToken: localStorage.getItem("accessToken") || null,
@@ -35,7 +34,7 @@ const initialState = {
 class AuthService implements IService {
    constructor(private http: HttpClient) {}
    login = {
-      api: createAsyncThunk("login", async (credentials: LoginPaylaod, thunkAPI) => {
+      api: createAsyncThunk("login", async (credentials: LoginDTO, thunkAPI) => {
          try {
             const { data } = await this.http.public.post("/auth/login", credentials);
             localStorage.setItem("accessToken", data.data?.accessToken);

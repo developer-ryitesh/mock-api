@@ -20,7 +20,7 @@ export default function InviteUserForm({ loading, onSubmit, ModalButton }: Props
    return (
       <div>
          <ModalButton onOpen={() => modalRef.current?.setToggle(true)} />
-         <Modal ref={modalRef} size="lg">
+         <Modal ref={modalRef} size="lg" className="p-2 rounded-lg">
             <Formik
                initialValues={fields}
                onSubmit={(values, formikHelpers) => {
@@ -36,7 +36,7 @@ export default function InviteUserForm({ loading, onSubmit, ModalButton }: Props
                })}>
                {(formik) => (
                   <Form>
-                     <Card heading="Invite User">
+                     <Card heading="Invite User" className="border-0">
                         <div className="flex flex-col gap-2">
                            <div>
                               <TextField {...formik.getFieldProps("email")} label="Email*" name="email" placeholder="Email" />
@@ -46,11 +46,11 @@ export default function InviteUserForm({ loading, onSubmit, ModalButton }: Props
                               <TextField {...formik.getFieldProps("password")} label="Password*" name="password" placeholder="Password" />
                               <ErrorMessageFormik name="password" />
                            </div>
-                           <div className="flex justify-end items-center gap-3">
-                              <Button type="button" variant="outline" onClick={() => modalRef.current?.setToggle(false)}>
+                           <div className="flex justify-end items-center gap-3 mt-2">
+                              <Button type="button" size="sm" variant="outline" accent="error" onClick={() => modalRef.current?.setToggle(false)}>
                                  Close
                               </Button>
-                              <Button type="submit" loading={loading}>
+                              <Button type="submit" size="sm" loading={loading}>
                                  Invite
                               </Button>
                            </div>

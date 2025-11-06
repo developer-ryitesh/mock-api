@@ -24,7 +24,7 @@ export default function OverviewPage() {
                   <span className="text-[23px] font-semibold block mt-3">453</span>
                   <div className="flex items-center gap-2 mt-3">
                      <Badge //
-                        className="bg-[#DBEEE7] text-[#11905E] text-[10px] rounded-[2px]">
+                        className="bg-[#DBEEE7] text-[#11905E] text-[10px] rounded">
                         +17%
                      </Badge>{" "}
                      <span className="text-[10px] font-normal">/ Month</span>
@@ -37,7 +37,7 @@ export default function OverviewPage() {
                   <span className="text-[23px] font-semibold block mt-3">453</span>
                   <div className="flex items-center gap-2 mt-3">
                      <Badge //
-                        className="bg-[#DBEEE7] text-[#11905E] text-[10px] rounded-[2px]">
+                        className="bg-[#DBEEE7] text-[#11905E] text-[10px] rounded">
                         +17%
                      </Badge>{" "}
                      <span className="text-[10px] font-normal">/ Month</span>
@@ -50,7 +50,7 @@ export default function OverviewPage() {
                   <span className="text-[23px] font-semibold block mt-3">453</span>
                   <div className="flex items-center gap-2 mt-3">
                      <Badge //
-                        className="bg-[#DBEEE7] text-[#11905E] text-[10px] rounded-[2px]">
+                        className="bg-[#DBEEE7] text-[#11905E] text-[10px] rounded">
                         +17%
                      </Badge>{" "}
                      <span className="text-[10px] font-normal">/ Month</span>
