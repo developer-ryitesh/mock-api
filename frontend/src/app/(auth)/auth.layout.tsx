@@ -19,8 +19,8 @@ export default function AuthLayout() {
                      className="mx-auto mb-3"
                      src="/vite.svg"
                      alt="Your Company"
-                     width={170}
-                     height={170}
+                     width={140}
+                     height={140}
                   />
                   <Outlet />
                </div>

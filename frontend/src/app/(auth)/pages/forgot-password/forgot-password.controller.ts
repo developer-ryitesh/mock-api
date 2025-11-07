@@ -7,10 +7,8 @@ const initialValues = {
    email: "",
    otp: "",
    newPassword: "",
-   actions: {
-      currentStep: 1,
-      otp_expiry: 0,
-   },
+   step: 1,
+   exp: 0,
 };
 export default function useForgotPasswordController() {
    const dispatch = useAppDispatch();
@@ -26,14 +24,10 @@ export default function useForgotPasswordController() {
       try {
          const data = await dispatch(authService.forgotPassword.api({ email: fields.email })).unwrap();
          console.log(data);
-
          setFields((prev) => ({
             ...prev,
-            actions: {
-               otp_expiry: data.data.expiresIn,
-               currentStep: 2,
-               resetToken: "",
-            },
+            exp: data.data.expiresIn,
+            step: 2,
          }));
       } catch (error) {
          return;

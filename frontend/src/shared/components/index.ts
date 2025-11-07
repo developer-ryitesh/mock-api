@@ -1,5 +1,6 @@
+export { IsolationTemplate } from "./isolation-template/isolation-template";
 export { Modal, type ModalRefType } from "./modal/modal";
-export { DigitalTimer } from "./digital-timer/digital-timer";
+export { TimerField, type TimerEventType } from "./timer-field/timer-field";
 export { PageHeader } from "./page-header/PageHeader";
 export { Card } from "./card/card";
 export { AsideMenu } from "./aside-menu/aside-menu";

@@ -1,66 +1,69 @@
-import { withSafeBoundary } from "@/shared/components";
+import { IsolationTemplate, withSafeBoundary } from "@/shared/components";
 import { type ReactNode } from "react";
 import { Helmet } from "react-helmet";
 import { Button, TextField } from "@/shared/ui";
 import useLoginController from "./login.controller";
 import { Link } from "react-router";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const HelmetContainer = ({ children }: { children: ReactNode }) => (
-  <>
-    <Helmet>
-      <title>Login</title>
-    </Helmet>
-    {children}
-  </>
+   <>
+      <Helmet>
+         <title>Login</title>
+      </Helmet>
+      {children}
+   </>
 );
 
 const LoginPage = withSafeBoundary(() => {
-  const ctrl = useLoginController();
-  
-  return (
-    <HelmetContainer>
-      <form onSubmit={ctrl.onSubmit} className="flex flex-col gap-6">
-        <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Login to your account</h1>
-        </div>
-        <div className="grid gap-3">
-          <div>
-            <TextField
-              label="Email"
-              type="email"
-              name="email"
-              value={ctrl.fields.email}
-              onChange={ctrl.onChange}
-              required
-            />
-          </div>
+   const ctrl = useLoginController();
 
-          <div>
-            <div className="flex items-center mb-2">
-              <label htmlFor="password" className="font-normal">
-                Password
-              </label>
-              <Link to="/auth/forgot-password" className="ml-auto text-sm underline-offset-2 hover:underline">
-                Forgot your password?
-              </Link>
+   return (
+      <HelmetContainer>
+         <form onSubmit={ctrl.onSubmit} className="flex flex-col gap-6">
+            <div className="flex flex-col items-center gap-2 text-center">
+               <h1 className="text-2xl font-bold">Login to your account</h1>
             </div>
-            <TextField
-              type="text"
-              name="password"
-              value={ctrl.fields.password}
-              onChange={ctrl.onChange}
-              required
-            />
-          </div>
-          <div>
-            <Button type="submit" className="w-full" loading={ctrl.login.isLoading}>
-              Login
-            </Button>
-          </div>
-        </div>
-      </form>
-    </HelmetContainer>
-  );
+            <div className="grid gap-3">
+               <div>
+                  <TextField label="Email" type="email" name="email" value={ctrl.fields.email} onChange={ctrl.onChange} required />
+               </div>
+
+               <div>
+                  <div className="flex items-center mb-2">
+                     <label htmlFor="password" className="font-normal">
+                        Password
+                     </label>
+                     <Link to="/auth/forgot-password" className="ml-auto text-sm underline-offset-2 hover:underline">
+                        Forgot your password?
+                     </Link>
+                  </div>
+                  <IsolationTemplate vars={{ isShow: false }}>
+                     {({ vars, set }) => (
+                        <TextField //
+                           type={vars.isShow ? "text" : "password"}
+                           name="password"
+                           value={ctrl.fields.password}
+                           onChange={ctrl.onChange}
+                           required
+                           suffixIcon={
+                              <button type="button" className="cursor-pointer" onClick={() => set({ isShow: !vars.isShow })}>
+                                 {vars.isShow ? <FiEye /> : <FiEyeOff />}
+                              </button>
+                           }
+                        />
+                     )}
+                  </IsolationTemplate>
+               </div>
+               <div>
+                  <Button type="submit" className="w-full" loading={ctrl.login.isLoading}>
+                     Login
+                  </Button>
+               </div>
+            </div>
+         </form>
+      </HelmetContainer>
+   );
 });
 
 export default LoginPage;

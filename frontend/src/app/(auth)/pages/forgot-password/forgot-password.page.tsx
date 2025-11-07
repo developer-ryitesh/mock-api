@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import useForgotPasswordController from "./forgot-password.controller";
 import { Link } from "react-router";
 import { Button, TextField } from "@/shared/ui";
-import { DigitalTimer, Loading } from "@/shared/components";
+import { TimerField } from "@/shared/components";
 
 const HelmetContainer = ({ children }: { children: ReactNode }) => (
    <>
@@ -24,7 +24,7 @@ export default function ForgotPasswordPage() {
                   <h1 className="text-2xl font-bold">Forgot Password</h1>
                </div>
                <div className="flex flex-col gap-2">
-                  {ctrl.fields.actions.currentStep === 1 && ( //
+                  {ctrl.fields.step === 1 && ( //
                      <>
                         <TextField //
                            label="Email"
@@ -39,34 +39,23 @@ export default function ForgotPasswordPage() {
                         </Button>
                      </>
                   )}
-                  {ctrl.fields.actions.currentStep === 2 && ( //
+                  {ctrl.fields.step === 2 && ( //
                      <>
-                        <div className="flex items-center justify-between mb-1">
-                           <label htmlFor="otp">OTP</label>
-                           <div>
-                              <Loading //
-                                 loading={ctrl.forgotPassword.isLoading}
-                                 className="inline-block text-primary">
-                                 <DigitalTimer //
-                                    sec={ctrl.fields.actions.otp_expiry}
-                                    Label={(time) => (
-                                       <span className="text-red-500 text-sm">
-                                          {/*  */}
-                                          Expire in {time}
-                                       </span>
-                                    )}
-                                    Component={() => (
-                                       <Button //
-                                          type="button"
-                                          className="p-0"
-                                          variant="link"
-                                          onClick={ctrl.onRequestOtp}>
-                                          Resend
-                                       </Button>
-                                    )}
-                                 />
-                              </Loading>
-                           </div>
+                        <div className="flex items-center justify-between">
+                           <label htmlFor="otp" className="block text-sm font-medium text-gray-70">
+                              OTP
+                           </label>
+                           <TimerField
+                              name="exp"
+                              value={ctrl.fields.exp}
+                              Render={(time) => <span className="text-red-500 text-sm">{time}</span>}
+                              onChange={ctrl.onChange}
+                              Trigger={() => (
+                                 <Button type="button" className="p-0" variant="link" onClick={ctrl.onRequestOtp} loading={ctrl.forgotPassword.isLoading}>
+                                    Resend
+                                 </Button>
+                              )}
+                           />
                         </div>
                         <TextField //
                            type="text"
