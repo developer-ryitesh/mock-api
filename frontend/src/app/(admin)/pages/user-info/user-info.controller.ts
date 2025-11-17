@@ -22,7 +22,7 @@ export default function useUserInfoController() {
    const onDeleteUser = async (id: string) => {
       try {
          await dispatch(adminUserService.deleteUser.api(id)).unwrap();
-         navigate("/users", { replace: true });
+         navigate("/admin/users", { replace: true });
       } catch (error) {
          return;
       }

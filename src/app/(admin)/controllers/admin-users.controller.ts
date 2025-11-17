@@ -60,16 +60,23 @@ class AdminUsersController {
          });
 
          if (result.id) {
-            const data = {
-               email: body.email,
-               password: body.password,
-               login_link: `${CONFIG.HAS_PROD ? CONFIG.SERVER_URL : CONFIG.DEV_URL}/auth/login`,
-            };
-            await SendEmail({
-               to: body.email,
-               subject: "welcome mail",
-               template: { name: "welcome.mail", context: data },
-            });
+            try {
+               const context = {
+                  email: body.email,
+                  password: body.password,
+                  login_link: `${CONFIG.HAS_PROD ? CONFIG.SERVER_URL : CONFIG.DEV_URL}/auth/login`,
+               };
+               await SendEmail({
+                  to: body.email,
+                  subject: "welcome mail",
+                  template: {
+                     name: "welcome.mail",
+                     context: context,
+                  },
+               });
+            } catch (error) {
+               console.error("Email send failed:", error);
+            }
          }
          res.status(200).json({
             success: true,
@@ -120,17 +127,21 @@ class AdminUsersController {
             status: body.status,
          });
          if (updateUser) {
-            const data = {
-               name: updateUser.profile?.fullName || "User",
-               email: updateUser.email,
-               isActive: updateUser.isActive,
-               login: "https://yourdomain.com/login",
-            };
-            await SendEmail({
-               to: updateUser.email, //
-               subject: "Account Status",
-               template: { name: "account-status.mail", context: data },
-            });
+            try {
+               const data = {
+                  name: updateUser.profile?.fullName || "User",
+                  email: updateUser.email,
+                  isActive: updateUser.isActive,
+                  login: "https://yourdomain.com/login",
+               };
+               await SendEmail({
+                  to: updateUser.email, //
+                  subject: "Account Status",
+                  template: { name: "account-status.mail", context: data },
+               });
+            } catch (error) {
+               console.log(error);
+            }
          }
          res.status(200).json({
             success: true,

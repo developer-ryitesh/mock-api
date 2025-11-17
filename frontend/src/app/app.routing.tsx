@@ -4,7 +4,7 @@ import NotFoundPage from "@/app/404/page";
 import { Loading } from "@/shared/components";
 import AuthGuard from "@/guards/auth.guard";
 
-const UserModule = lazy(() => import("./(user)/user.module"));
+const UserModule = lazy(() => import("./user/user.module"));
 const AdminModule = lazy(() => import("./(admin)/admin.module"));
 const AuthModule = lazy(() => import("./(auth)/auth.module"));
 

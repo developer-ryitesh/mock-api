@@ -131,14 +131,18 @@ class AuthController {
             otp: otp,
             otpExpiresIn: Math.floor((expDate?._seconds * 1000 + expDate?._nanoseconds / 1e6 - Date.now()) / 1000),
          };
-         await SendEmail({
-            to: user.email,
-            subject: "Forgot Password",
-            template: {
-               name: "forgot-password.mail",
-               context: data,
-            },
-         });
+         try {
+            await SendEmail({
+               to: user.email,
+               subject: "Forgot Password",
+               template: {
+                  name: "forgot-password.mail",
+                  context: data,
+               },
+            });
+         } catch (error) {
+            console.log(error);
+         }
          res.status(201).json({
             message: "Otp send your email successfully",
             data: {

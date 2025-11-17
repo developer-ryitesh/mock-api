@@ -10,6 +10,7 @@ export function PushNotification({ onRefresh }: { onRefresh?: () => void }) {
    const cachesdDeviceToken = localStorage.getItem("deviceToken");
    const isEnable = permission !== "granted" && permission !== "denied";
    const dispatch = useAppDispatch();
+   
    const notificationPermissionRequest = async () => {
       try {
          const result = await Notification.requestPermission();

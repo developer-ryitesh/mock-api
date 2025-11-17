@@ -83,7 +83,15 @@ export default function AdminLayout() {
                   </div>
                </div>
                <div className="border-gray-300 border-t h-[57px] flex justify-center items-center p-2">
-                  <Button accent="error" variant="link" onClick={() => dispatch(authService.logout.api())} loading={logout.isLoading}>
+                  <Button
+                     accent="error"
+                     variant="link"
+                     onClick={() => dispatch(authService.logout.api())}
+                     loading={logout.isLoading}
+                     confirm={{
+                        title: "Logout",
+                        description: "Click here to securely sign out of your account.",
+                     }}>
                      <MdLogout size={17} /> {props.isToggle || screen.sm ? "logout" : ""}
                   </Button>
                </div>
