@@ -1,4 +1,4 @@
-import type { IProfile } from "@/types/User.type";
+import type { ISession } from "@/app/profile/types/profile.type";
 
 interface IUser {
    id: string;
@@ -8,6 +8,6 @@ interface IUser {
    isActive: boolean;
    deviceToken: string;
    updatedAt: string;
-   profile: IProfile;
+   profile: ISession["profile"];
 }
 export type { IUser };

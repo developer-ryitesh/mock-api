@@ -5,7 +5,7 @@ import { ChangeUserStatusDTO, InviteUserDTO } from "../dtos/admin-user.dtos";
 export default class AdminUserRepository {
    geAllUsers = async () => {
       try {
-         const data = await User.find();
+         const data = await User.find({ role: "USER" });
          return data;
       } catch (error) {
          throw new createHttpError.InternalServerError("InternalServerError");

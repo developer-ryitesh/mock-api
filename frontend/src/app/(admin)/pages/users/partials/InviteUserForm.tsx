@@ -3,8 +3,8 @@ import { Button, TextField } from "@/shared/ui";
 import { useRef, useState, type ComponentType } from "react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import type { IUser } from "@/types/User.type";
 import { Card, Modal, type ModalRefType } from "@/shared/components";
+import type { IUser } from "@/app/(admin)/types/admin.type";
 
 type Props = IFormComponent<IUser> & {
    ModalButton: ComponentType<{ onOpen: () => void }>;

@@ -1,9 +1,9 @@
 import type { IFormComponent } from "@/libs/formik";
 import { Button, Textarea, TextField } from "@/shared/ui";
-import type { IProfile } from "@/types/User.type";
 import { Form, Formik } from "formik";
+import type { ISession } from "../types/profile.type";
 
-type Props = IFormComponent<IProfile>;
+type Props = IFormComponent<ISession["profile"]>;
 export default function EditProfileForm({ onSubmit, patchValues, loading }: Props) {
    const [first_name, last_name] = patchValues?.fullName?.split(" ") || "";
    const fields = {

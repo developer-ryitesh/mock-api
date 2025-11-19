@@ -10,12 +10,12 @@ import { MdLogout } from "react-icons/md";
 import { LuBell } from "react-icons/lu";
 import { RiMenuFold2Line } from "react-icons/ri";
 import { CiSettings } from "react-icons/ci";
-import { authService } from "../(auth)/services/auth.service";
 import { Button } from "@/shared/ui";
 import { PushNotification } from "@/libs/firebase/components";
 import { useAppRouter } from "@/libs/router/hooks";
 import { TbUsersGroup } from "react-icons/tb";
 import { notificationService } from "../(notification)/services/notification.service";
+import { profileService } from "../profile/services/profile.service";
 
 const links = [
    {
@@ -44,7 +44,7 @@ export default function AdminLayout() {
    const router = useAppRouter();
    const screen = useMediaQuery();
    const dispatch = useAppDispatch();
-   const { session, logout } = useAppSelector((state) => state.auth);
+   const { session, logout } = useAppSelector((state) => state.profile);
 
    const onToggle = () => {
       asideRef.current?.setToggle((x: boolean) => !x);
@@ -86,7 +86,7 @@ export default function AdminLayout() {
                   <Button
                      accent="error"
                      variant="link"
-                     onClick={() => dispatch(authService.logout.api())}
+                     onClick={() => dispatch(profileService.logout.api())}
                      loading={logout.isLoading}
                      confirm={{
                         title: "Logout",

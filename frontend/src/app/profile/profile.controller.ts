@@ -1,9 +1,9 @@
-import { authService } from "@/app/(auth)/services/auth.service";
 import type { IFormikSubmit } from "@/libs/formik";
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
+import { profileService } from "./services/profile.service";
 
 export default function useProfileController() {
-   const { session, updateProfile, updatePassword } = useAppSelector((state) => state.auth);
+   const { session, updateProfile, updatePassword } = useAppSelector((state) => state.profile);
    const dispatch = useAppDispatch();
 
    const onProfileUpdate = async (values: any) => {
@@ -12,7 +12,7 @@ export default function useProfileController() {
             fullName: `${values.first_name} ${values.last_name}`,
             bio: values.bio,
          };
-         await dispatch(authService.updateProfile.api(payload)).unwrap();
+         await dispatch(profileService.updateProfile.api(payload)).unwrap();
       } catch (error) {
          return;
       }
@@ -20,7 +20,7 @@ export default function useProfileController() {
 
    const onPasswordUpdate: IFormikSubmit = async (payload: any, formikHelpers) => {
       try {
-         await dispatch(authService.updatePassword.api(payload)).unwrap();
+         await dispatch(profileService.updatePassword.api(payload)).unwrap();
          formikHelpers?.resetForm();
       } catch (error) {
          return;
