@@ -1,0 +1,13 @@
+@theme {
+  /* Base colors */
+  --color-primary:   var(--primary); /* Pink / Purple */
+  --color-foreground: var(--foreground);     /* White */
+  /* Extended accent colors */
+  --color-dark:      var(--dark); /* Deep grayish blue */
+  --color-secondary: var(--secondary); /* Soft gray-blue */
+  --color-done:      var(--done);/* Green */
+  --color-error:     var(--error);/* Red-orange */
+  --color-warn:      var(--warn);   /* Yellow */
+  --color-info:      var(--info); /* Blue */
+  /*  */
+}

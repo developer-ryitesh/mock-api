@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "./animation.css";
+@import "./global.css";
+@import "./libs.css";
+@import "./ui.css";
+
+@custom-variant dark (&:is(.dark *));
+ 
+:root {
+  --skin-primary: #01bb87;
+  --skin-foreground: #ffffff;
+  --skin-done: #22C55E;
+  --skin-warn: #F59E0B;
+  --skin-error: #EF4444;
+  --skin-info: #06B6D4;
+  --skin-secondary: #6c757d;
+}
+
+:root {
+  --primary: var(--skin-primary);     
+  --foreground: var(--skin-foreground);  
+  --dark: var(--skin-dark);       
+  --secondary: var(--skin-secondary);    
+  --done: var(--skin-done);       
+  --error: var(--skin-error);     
+  --warn: var(--skin-warn);      
+  --info: var(--skin-info);     
+}
