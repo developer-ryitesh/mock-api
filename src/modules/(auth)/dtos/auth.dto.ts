@@ -5,7 +5,6 @@ export type ForgotPasswordDTO = {
 export type ResetPasswordDTO = {
    otp: string;
    newPassword: string;
-   confirmPassword: string;
 };
 
 export type LoginDTO = {

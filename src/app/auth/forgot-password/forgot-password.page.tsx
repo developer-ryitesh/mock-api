@@ -46,8 +46,8 @@ export default function ForgotPasswordPage() {
                               OTP
                            </label>
                            <TimerField
-                              name="exp"
-                              value={ctrl.fields.exp}
+                              name="seconds"
+                              value={ctrl.fields.seconds}
                               Render={(time) => <span className="text-red-500 text-sm">{time}</span>}
                               onChange={ctrl.onChange}
                               Trigger={() => (

@@ -34,7 +34,6 @@ export function PushNotification({ onRefresh }: { onRefresh?: () => void }) {
    useEffect(() => {
       const unsubscribe = firebase.onMessage(firebase.messaging, async (payload) => {
          onRefresh?.();
-         Logger.debug(payload);
          snackbar({
             title: payload?.notification?.title || "",
             body: payload?.notification?.body || "",

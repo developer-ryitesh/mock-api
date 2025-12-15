@@ -1,3 +1,4 @@
+import Notification from "../../../app/(notification)/model/notification.model";
 import firebase from "../configs";
 import { ISend } from "../types";
 
@@ -38,6 +39,14 @@ export class FCM {
             }
          });
 
+         // void Notification.create({
+         //    title: payload.title,
+         //    body: payload.body,
+         //    type: payload.type,
+         //    priority: payload.priority,
+         //    userId: "dfd",
+         //    isRead: false,
+         // });
          return {
             success: res.successCount,
             failure: res.failureCount,

@@ -8,7 +8,7 @@ const initialValues = {
    otp: "",
    newPassword: "",
    step: 1,
-   exp: 0,
+   seconds: 0,
 };
 export default function useForgotPasswordController() {
    const dispatch = useAppDispatch();
@@ -22,10 +22,10 @@ export default function useForgotPasswordController() {
 
    const onRequestOtp = async () => {
       try {
-         const data = await dispatch(services.auth.forgotPassword.api({ email: fields.email })).unwrap();
+         const { data } = await dispatch(services.auth.forgotPassword.api({ email: fields.email })).unwrap();
          setFields((prev) => ({
             ...prev,
-            exp: data.data.expiresIn,
+            seconds: data.seconds,
             step: 2,
          }));
       } catch (error) {
@@ -38,7 +38,6 @@ export default function useForgotPasswordController() {
          await dispatch(
             services.auth.resetPassword.api({
                newPassword: fields.newPassword,
-               confirmPassword: fields.newPassword,
                otp: fields?.otp,
             })
          ).unwrap();
