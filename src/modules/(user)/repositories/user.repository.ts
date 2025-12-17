@@ -39,4 +39,8 @@ export default class UserRepository {
    deleteUserById = async (userId: string) => {
       return await this._http.private.delete(`/user/delete/${userId}`);
    };
+
+   dashboard = async () => {
+      return await this._http.private.get(`/user/dashboard`);
+   };
 }

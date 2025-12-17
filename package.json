@@ -9,7 +9,8 @@
       "build:BE": "tsc -p tsconfig.server.json",
       "build": "npm i && npm run build:BE && npm run build:FE",
       "lint": "eslint .",
-      "start": "node build/index.js"
+      "start": "node build/index.js",
+      "seed": "tsx seeds/index.ts"
    },
    "dependencies": {
       "@reduxjs/toolkit": "^2.11.1",

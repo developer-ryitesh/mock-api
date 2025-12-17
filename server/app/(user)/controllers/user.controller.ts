@@ -11,6 +11,7 @@ import { inviteUserSchema } from "../dtos/invite-user.dto";
 import { deleteUserSchema } from "../dtos/delete-user.dto";
 import { userActivationSchema } from "../dtos/user-activation.dto";
 import Mail from "../../../libs/mail";
+import User from "../model/user.model";
 
 class UserController {
    constructor(private _service: UserService, private _httpCookie: HttpCookie, private _mail: Mail) {}
@@ -157,6 +158,30 @@ class UserController {
          res.status(201).json({
             message: "password success updated!",
             data: {},
+            success: true,
+         });
+      } catch (error) {
+         next(error);
+      }
+   };
+
+   // --- dashboard ---
+   dashboard: RequestHandler = async (req, res, next) => {
+      try {
+         const [activeUsers, inactiveUsers, totalUsers] = await Promise.all([
+            User.query([{ field: "isActive", operator: "==", value: true }]),
+            User.query([{ field: "isActive", operator: "!=", value: true }]),
+            User.find(),
+         ]);
+         res.status(200).json({
+            message: "dashboard successfully",
+            data: {
+               users: {
+                  total: totalUsers.length,
+                  active: activeUsers.length,
+                  inactive: inactiveUsers.length,
+               },
+            },
             success: true,
          });
       } catch (error) {

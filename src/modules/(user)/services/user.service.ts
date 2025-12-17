@@ -36,6 +36,16 @@ const initialState = {
    logout: {
       isLoading: false,
    },
+   dashboard: {
+      isLoading: true,
+      data: null as null | {
+         users: {
+            total: number;
+            active: number;
+            inactive: number;
+         };
+      },
+   },
 };
 
 export default class UserService implements IService {
@@ -224,6 +234,29 @@ export default class UserService implements IService {
       },
    };
 
+   dashboard = {
+      api: createAsyncThunk("dashboard", async (_, thunkAPI) => {
+         try {
+            const { data } = await this._repo.dashboard();
+            return data;
+         } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+         }
+      }),
+      reducer(builder: IBuilder<typeof initialState>) {
+         builder.addCase(this.api.pending, (state) => {
+            state.dashboard.isLoading = true;
+         });
+         builder.addCase(this.api.fulfilled, (state, action) => {
+            state.dashboard.isLoading = false;
+            state.dashboard.data = action.payload.data;
+         });
+         builder.addCase(this.api.rejected, (state) => {
+            state.dashboard.isLoading = false;
+         });
+      },
+   };
+
    logout = {
       api: createAsyncThunk("logout", async (_, thunkAPI) => {
          try {
@@ -267,6 +300,7 @@ export default class UserService implements IService {
          this.inviteUser.reducer(builder);
          this.userStatus.reducer(builder);
          this.deleteUser.reducer(builder);
+         this.dashboard.reducer(builder);
       },
    });
    reducer = this.slice.reducer;

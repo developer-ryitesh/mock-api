@@ -11,6 +11,7 @@ export default function App() {
    useEffect(() => {
       if (accessToken) {
          dispatch(services.user.getSession.api());
+         dispatch(services.user.dashboard.api());
          dispatch(services.notification.getAllNotifications.api());
       }
       return () => {};

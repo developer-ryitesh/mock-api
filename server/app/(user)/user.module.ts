@@ -10,6 +10,7 @@ export default function userModule() {
    routes.get("/logout", [auth.authorize(["USER", "ADMIN"])], userController.logout);
 
    //---ADMIN-------
+   routes.get("/dashboard", userController.dashboard);
    routes.get("/all", [auth.authorize(["ADMIN"])], userController.geAllUsers);
    routes.get("/:id", [auth.authorize(["ADMIN"])], userController.geUserById);
    routes.delete("/delete/:id", [auth.authorize(["ADMIN"])], userController.deleteUser);
