@@ -2,7 +2,8 @@ import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
 import AppRouting from "./app.routing";
 import { Loading, ProgressBar } from "@/shared/components";
 import { useEffect } from "react";
-import { services } from "@/modules";
+import { userService } from "@/modules/(user)";
+import { notificationService } from "@/modules/(notification)";
 
 export default function App() {
    const { getSession, accessToken } = useAppSelector((state) => state.user);
@@ -10,9 +11,9 @@ export default function App() {
 
    useEffect(() => {
       if (accessToken) {
-         dispatch(services.user.getSession.api());
-         dispatch(services.user.dashboard.api());
-         dispatch(services.notification.getAllNotifications.api());
+         dispatch(userService.getSession.api());
+         dispatch(userService.dashboard.api());
+         dispatch(notificationService.getAllNotifications.api());
       }
       return () => {};
    }, [accessToken]);

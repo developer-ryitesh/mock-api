@@ -3,8 +3,8 @@ import { snackbar } from "@/libs/snackbar/utils";
 import firebase from "@/libs/firebase/config";
 import { useAppDispatch } from "@/libs/redux/hooks";
 import { Button } from "@/shared/ui";
-import { services } from "@/modules";
 import Sound from "@/assets/audios";
+import configs from "@/configs";
 
 export function PushNotification({ onRefresh }: { onRefresh?: () => void }) {
    const [permission, setPermission] = useState(Notification.permission);
@@ -18,7 +18,7 @@ export function PushNotification({ onRefresh }: { onRefresh?: () => void }) {
          setPermission(result);
          if (result === "granted" && !cachesdDeviceToken) {
             const newDeviceToken = await firebase.getDeviceToken();
-            await dispatch(services.notification.subscribe.api(newDeviceToken)).unwrap();
+            await dispatch(configs.subscribe.api(newDeviceToken)).unwrap();
             localStorage.setItem("deviceToken", newDeviceToken);
          }
       } catch (err) {
@@ -34,6 +34,7 @@ export function PushNotification({ onRefresh }: { onRefresh?: () => void }) {
    useEffect(() => {
       const unsubscribe = firebase.onMessage(firebase.messaging, async (payload) => {
          onRefresh?.();
+         Logger.debug(payload);
          snackbar({
             title: payload?.notification?.title || "",
             body: payload?.notification?.body || "",

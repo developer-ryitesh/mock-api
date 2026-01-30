@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
 import { useState } from "react";
 import { useAppRouter } from "@/libs/router/hooks";
-import { services } from "@/modules";
+import { authService } from "@/modules/(auth)";
 
 const initialValues = {
    email: "",
@@ -22,7 +22,7 @@ export default function useForgotPasswordController() {
 
    const onRequestOtp = async () => {
       try {
-         const { data } = await dispatch(services.auth.forgotPassword.api({ email: fields.email })).unwrap();
+         const { data } = await dispatch(authService.forgotPassword.api({ email: fields.email })).unwrap();
          setFields((prev) => ({
             ...prev,
             seconds: data.seconds,
@@ -36,7 +36,7 @@ export default function useForgotPasswordController() {
    const onResetPassaword = async () => {
       try {
          await dispatch(
-            services.auth.resetPassword.api({
+            authService.resetPassword.api({
                newPassword: fields.newPassword,
                otp: fields?.otp,
             })

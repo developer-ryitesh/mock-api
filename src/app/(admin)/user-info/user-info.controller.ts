@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
-import { services } from "@/modules";
+import { userService } from "@/modules/(user)";
 import type { UserStatusDTO } from "@/modules/(user)/dtos/user.dto";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -13,7 +13,7 @@ export default function useUserInfoController() {
    const onChangeStatusUser = async (status: UserStatusDTO["status"]) => {
       try {
          if (!id) return;
-         await dispatch(services.user.userStatus.api({ userId: id, status })).unwrap();
+         await dispatch(userService.userStatus.api({ userId: id, status })).unwrap();
       } catch (error) {
          return;
       }
@@ -21,7 +21,7 @@ export default function useUserInfoController() {
 
    const onDeleteUser = async (id: string) => {
       try {
-         await dispatch(services.user.deleteUser.api(id)).unwrap();
+         await dispatch(userService.deleteUser.api(id)).unwrap();
          navigate("/admin/users", { replace: true });
       } catch (error) {
          return;
@@ -29,7 +29,7 @@ export default function useUserInfoController() {
    };
 
    useEffect(() => {
-      if (id) dispatch(services.user.getSingleUser.api(id));
+      if (id) dispatch(userService.getSingleUser.api(id));
       return () => {};
    }, [id]);
 

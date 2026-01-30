@@ -14,15 +14,16 @@ export default class NotificationService {
       const result = await this._repo.getDeviceTokensByUserIds(body.userIds);
       await this._fcm.send({
          tokens: result.map((_) => _.deviceToken),
+         userIds: body.userIds,
          payload: {
             title: body.title,
             body: body.body,
-            type: body.type as any,
             priority: body.priority as any,
-            data: body.data,
-            url: body?.url,
-            icon: body?.icon,
-            imageUrl: body.imageUrl,
+            type: body.type as any,
+            icon: body?.icon as string,
+            url: body?.url as string,
+            imageUrl: body.imageUrl as string,
+            data: body.data || {}, //json
          },
       });
 

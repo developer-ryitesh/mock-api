@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
 import { useAppRouter } from "@/libs/router/hooks";
-import { actions, services } from "@/modules";
+import { authService } from "@/modules/(auth)";
+import { userActions } from "@/modules/(user)";
 
 export default function useLoginController() {
    const [fields, setFields] = useState({ email: "", password: "" });
@@ -17,10 +18,10 @@ export default function useLoginController() {
    const onSubmit = async (e: FormEvent) => {
       e.preventDefault();
       try {
-         const data = await dispatch(services.auth.login.api(fields)).unwrap();
+         const data = await dispatch(authService.login.api(fields)).unwrap();
          const accessToken = data?.data?.accessToken;
          localStorage.setItem("accessToken", accessToken);
-         dispatch(actions.user.updateToken(accessToken));
+         dispatch(userActions.updateToken(accessToken));
          router.replace("/");
       } catch {
          return;

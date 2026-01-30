@@ -17,20 +17,17 @@ const NOTIFICATION = {
 // Types
 type INotificationType = keyof typeof NOTIFICATION.TYPE;
 
-interface INotificationPayload {
-   type: INotificationType;
+interface INotificationModal {
+   id: string;
+   userId: string;
    title: string;
    body: string;
    priority: keyof typeof NOTIFICATION.PRIORITY;
-   data?: Record<string, any>;
-   url?: string;
-   icon?: string;
-   imageUrl?: string;
-}
-
-interface INotificationModal extends Omit<INotificationPayload, "data" | "url" | "icon" | "imageUrl"> {
-   id?: string;
-   userId: string;
+   type: INotificationType;
+   icon: string;
+   url: string;
+   imageUrl: string;
+   data: any; //json
    isRead: boolean;
    createdAt?: Date;
    updatedAt?: Date;
@@ -38,5 +35,5 @@ interface INotificationModal extends Omit<INotificationPayload, "data" | "url" |
 
 const Notification = new Firestore<INotificationModal>("notifications");
 export default Notification;
-export type { INotificationModal, INotificationPayload, INotificationType };
+export type { INotificationModal, INotificationType };
 export { NOTIFICATION };

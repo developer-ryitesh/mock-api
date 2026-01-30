@@ -3,10 +3,21 @@ import firebase from "../configs";
 import { ISend } from "../types";
 
 export class FCM {
-   send = async ({ tokens, payload }: ISend) => {
+   send = async ({ tokens, userIds, payload }: ISend) => {
       if (!tokens || tokens.length === 0) {
          return { success: 0, failure: 0, invalidTokens: [] };
       }
+
+      const data: ISend["payload"] = {
+         title: payload.title,
+         body: payload.body,
+         priority: payload.priority,
+         type: payload.type,
+         icon: payload.icon || "",
+         url: payload.url || "",
+         imageUrl: payload.imageUrl || "",
+         data: JSON.stringify(payload.data) || "{}",
+      };
 
       try {
          const res = await firebase.messaging().sendEachForMulticast({
@@ -16,16 +27,7 @@ export class FCM {
                body: payload.body,
                ...(payload.imageUrl && { imageUrl: payload.imageUrl }),
             },
-            data: {
-               title: payload.title,
-               body: payload.body,
-               priority: payload.priority,
-               type: payload.type,
-               ...(payload.icon && { icon: payload.icon }),
-               ...(payload.url && { url: payload.url }),
-               ...(payload.imageUrl && { imageUrl: payload.imageUrl }),
-               ...(payload.data && { data: JSON.stringify(payload.data) }),
-            },
+            data: data as any,
          });
 
          const invalidTokens: string[] = [];
@@ -38,15 +40,16 @@ export class FCM {
                }
             }
          });
+         const notifications = userIds.map((userId) => ({
+            userId: userId,
+            ...data,
+         }));
 
-         // void Notification.create({
-         //    title: payload.title,
-         //    body: payload.body,
-         //    type: payload.type,
-         //    priority: payload.priority,
-         //    userId: "dfd",
-         //    isRead: false,
-         // });
+         try {
+            await Notification.insertMany(notifications as any);
+         } catch (error) {
+            console.error("Notification save error:", error);
+         }
          return {
             success: res.successCount,
             failure: res.failureCount,

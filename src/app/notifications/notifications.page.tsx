@@ -72,7 +72,7 @@ export default function NotificationPage() {
                <div className="col-span-12 md:col-span-5">
                   <Card heading="New Message">
                      <p className="text-sm text-gray-600 mb-2 text-start">Server maintenance scheduled for 10 PM tonight.</p>
-                     <div className="mt-3 p-3 bg-gray-50 rounded-md min-h-[200px]">
+                     <div className="mt-3 p-3 bg-gray-50 rounded-md min-h-50">
                         <p className="text-xs text-gray-600 mb-2 text-start">
                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem laudantium blanditiis necessitatibus enim culpa. Quos esse quam iure itaque et necessitatibus beatae
                            magnam unde repellat, dolores qui fuga architecto id!

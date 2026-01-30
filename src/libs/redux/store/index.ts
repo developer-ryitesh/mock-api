@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { reducers } from "@/modules";
+import configs from "@/configs";
 import { loggerMiddlewareRedux, toastMiddlewareRedux } from "../middlewares";
 
 const store = configureStore({
-   reducer: reducers,
+   reducer: configs.rootReducers,
    middleware(getDefaultMiddleware) {
       return getDefaultMiddleware().concat([
          loggerMiddlewareRedux, //

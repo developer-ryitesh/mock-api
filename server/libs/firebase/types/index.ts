@@ -1,6 +1,7 @@
-import { INotificationPayload } from "../../../app/(notification)/model/notification.model";
+import { INotificationModal } from "../../../app/(notification)/model/notification.model";
 
 export interface ISend {
    tokens: string[];
-   payload: INotificationPayload;
+   userIds: string[];
+   payload: Omit<INotificationModal, "userId" | "id" | "isRead">;
 }

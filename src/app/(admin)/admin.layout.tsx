@@ -14,7 +14,8 @@ import { Button } from "@/shared/ui";
 import { PushNotification } from "@/libs/firebase/components";
 import { useAppRouter } from "@/libs/router/hooks";
 import { TbUsersGroup } from "react-icons/tb";
-import { services } from "@/modules";
+import { notificationService } from "@/modules/(notification)";
+import { userService } from "@/modules/(user)";
 
 const links = [
    {
@@ -68,7 +69,7 @@ export default function AdminLayout() {
                   </div>
                   <div className="p-2">
                      <PushNotification //
-                        onRefresh={() => dispatch(services.notification.getAllNotifications.api())}
+                        onRefresh={() => dispatch(notificationService.getAllNotifications.api())}
                      />
                      {links.map(({ to, Icon, label }) => (
                         <RouterLink
@@ -85,7 +86,7 @@ export default function AdminLayout() {
                   <Button
                      accent="error"
                      variant="link"
-                     onClick={() => dispatch(services.user.logout.api())}
+                     onClick={() => dispatch(userService.logout.api())}
                      loading={logout.isLoading}
                      confirm={{
                         title: "Logout",

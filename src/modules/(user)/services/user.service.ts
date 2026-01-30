@@ -235,7 +235,7 @@ export default class UserService implements IService {
    };
 
    dashboard = {
-      api: createAsyncThunk("dashboard", async (_, thunkAPI) => {
+      api: createAsyncThunk("!dashboard", async (_, thunkAPI) => {
          try {
             const { data } = await this._repo.dashboard();
             return data;
@@ -307,7 +307,4 @@ export default class UserService implements IService {
    actions = this.slice.actions;
 }
 
-// const object = new UserService(new UserRepository(new HttpClient()));
-// export const adminUserReducer = object.reducer;
-// export const adminUserActions = object.actions;
-// export const adminUserService = object as Omit<typeof object, "reducer" | "actions">;
+
