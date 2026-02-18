@@ -1,7 +1,7 @@
 import type { Middleware } from "@reduxjs/toolkit";
 
 //=store=>(next)
-const loggerMiddlewareRedux: Middleware = (_) => (next) => (action: any) => {
+export const loggerMiddlewareRedux: Middleware = (_) => (next) => (action: any) => {
    if (action?.type.endsWith("/fulfilled")) {
       console.log(`[Dispatched] : ${action?.type}`);
    }
@@ -10,4 +10,3 @@ const loggerMiddlewareRedux: Middleware = (_) => (next) => (action: any) => {
    }
    return next(action);
 };
-export { loggerMiddlewareRedux };

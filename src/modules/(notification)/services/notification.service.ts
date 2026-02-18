@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { IBuilder, IService } from "@/libs/redux/types";
-import type { INotificationModal } from "../models/notification.model";
 import NotificationRepository from "../repositories/notification.repository";
+import type { INotificationModal } from "../models";
+import HttpClient from "@/libs/interceptors";
 
 const initialState = {
    subscribe: {
@@ -16,8 +17,9 @@ const initialState = {
    },
 };
 
-export default class NotificationService implements IService {
+class NotificationService implements IService {
    constructor(private _repo: NotificationRepository) {}
+
    subscribe = {
       api: createAsyncThunk("subscribe", async (deviceToken: string, thunkAPI) => {
          try {
@@ -86,6 +88,7 @@ export default class NotificationService implements IService {
          });
       },
    };
+
    private slice = createSlice({
       name: "AuthService",
       initialState,
@@ -96,11 +99,13 @@ export default class NotificationService implements IService {
          this.markAsRead.reducer(builder);
       },
    });
+
    reducer = this.slice.reducer;
    actions = this.slice.actions;
 }
 
-// const object = new NotificationService(new NotificationRepository(new HttpClient()));
-// export const notificationReducer = object.reducer;
-// export const notificationActions = object.actions;
-// export const notificationService = object as Omit<typeof object, "reducer" | "actions">;
+/*---------[di container]--------*/
+const container = new NotificationService(new NotificationRepository(new HttpClient()));
+export const notificationActions = container.actions;
+export const notificationReducer = container.reducer;
+export const notificationService = container as Omit<typeof container, "reducer" | "actions">;

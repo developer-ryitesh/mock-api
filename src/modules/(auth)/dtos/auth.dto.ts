@@ -1,3 +1,6 @@
+import * as Yup from "yup";
+import type { loginSchema } from "../validators";
+
 export type ForgotPasswordDTO = {
    email: string;
 };
@@ -7,10 +10,7 @@ export type ResetPasswordDTO = {
    newPassword: string;
 };
 
-export type LoginDTO = {
-   email: string;
-   password: string;
-};
+export type LoginDTO = Yup.InferType<typeof loginSchema>;
 
 export type RegisterDTO = {
    email: string;

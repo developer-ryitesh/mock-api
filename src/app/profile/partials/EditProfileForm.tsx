@@ -1,41 +1,39 @@
-import type { IFormComponent } from "@/libs/formik";
-import type ISessionModal from "@/modules/(user)/models/session.model";
-import { Button, Textarea, TextField } from "@/shared/ui";
+import { TextareaFormik, TextFieldFormik, type IFormComponent } from "@/libs/formik";
+import type { ISessionModel } from "@/modules/(user)/models";
+import { updateProfileSchema } from "@/modules/(user)/validators";
+import { Button } from "@/shared/ui";
 import { Form, Formik } from "formik";
 
-type Props = IFormComponent<ISessionModal["profile"]>;
+type Props = IFormComponent<ISessionModel["profile"]>;
+
 export default function EditProfileForm({ onSubmit, patchValues, loading }: Props) {
-   const [first_name, last_name] = patchValues?.fullName?.split(" ") || "";
+   const [name, lastname] = patchValues?.fullName?.split(" ") || "";
    const fields = {
-      first_name: first_name || "",
-      last_name: last_name || "",
+      name: name || "",
+      lastname: lastname || "",
       bio: patchValues?.bio || "",
    };
    return (
-      <Formik initialValues={fields} onSubmit={onSubmit}>
-         {(formik) => (
-            <Form className="grid grid-cols-12 gap-3">
-               <div className="col-span-12">
-                  <div className="flex justify-between items-center">
-                     <span className="font-medium text-[17px]">Edit Profile</span>
-                  </div>
-               </div>
-               <div className="col-span-12 sm:col-span-6">
-                  <TextField {...formik.getFieldProps("first_name")} label="First Name" />
-               </div>
-               <div className="col-span-12 sm:col-span-6">
-                  <TextField {...formik.getFieldProps("last_name")} label="Last Name" />
-               </div>
-               <div className="col-span-12">
-                  <Textarea {...formik.getFieldProps("bio")} label="Bio" />
-               </div>
-               <div className="col-span-12  text-end">
-                  <Button type="submit" loading={loading}>
-                     Update Profile
-                  </Button>
-               </div>
-            </Form>
-         )}
+      <Formik //
+         initialValues={fields}
+         onSubmit={onSubmit}
+         validationSchema={updateProfileSchema}>
+         <Form className="grid grid-cols-12 gap-3">
+            <div className="col-span-12 sm:col-span-6">
+               <TextFieldFormik name="name" label="First Name" />
+            </div>
+            <div className="col-span-12 sm:col-span-6">
+               <TextFieldFormik name="lastname" label="Last Name" />
+            </div>
+            <div className="col-span-12">
+               <TextareaFormik name="bio" label="Bio" />
+            </div>
+            <div className="col-span-12 text-end">
+               <Button type="submit" loading={loading}>
+                  Update Profile
+               </Button>
+            </div>
+         </Form>
       </Formik>
    );
 }

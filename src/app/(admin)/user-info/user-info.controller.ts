@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
-import { userService } from "@/modules/(user)";
-import type { UserStatusDTO } from "@/modules/(user)/dtos/user.dto";
+import type { UserStatusDTO } from "@/modules/(user)/dtos";
+import { userService } from "@/modules/(user)/services";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 

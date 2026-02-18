@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { IBuilder, IService } from "@/libs/redux/types";
-import type { ForgotPasswordDTO, LoginDTO, ResetPasswordDTO } from "../dtos/auth.dto";
 import AuthRepository from "../repositories/auth.repository";
+import type { ForgotPasswordDTO, LoginDTO, ResetPasswordDTO } from "../dtos/auth.dto";
+import HttpClient from "@/libs/interceptors";
 
 const initialState = {
    login: {
@@ -15,7 +16,7 @@ const initialState = {
    },
 };
 
-export default class AuthService implements IService {
+class AuthService implements IService {
    constructor(private _repo: AuthRepository) {}
 
    login = {
@@ -97,3 +98,9 @@ export default class AuthService implements IService {
    reducer = this.slice.reducer;
    actions = this.slice.actions;
 }
+
+/*---------[di container]--------*/
+const container = new AuthService(new AuthRepository(new HttpClient()));
+export const authActions = container.actions;
+export const authReducer = container.reducer;
+export const authService = container as Omit<typeof container, "reducer" | "actions">;

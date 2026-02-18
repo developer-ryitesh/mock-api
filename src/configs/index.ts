@@ -1,6 +1,6 @@
-import { authReducer } from "@/modules/(auth)";
-import { notificationReducer, notificationService } from "@/modules/(notification)";
-import { userReducer } from "@/modules/(user)";
+import { authReducer } from "@/modules/(auth)/services";
+import { notificationReducer, notificationService } from "@/modules/(notification)/services";
+import { userReducer } from "@/modules/(user)/services";
 
 const configs = {
    rootReducers: {

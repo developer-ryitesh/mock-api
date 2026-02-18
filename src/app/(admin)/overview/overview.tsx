@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
-import { userService } from "@/modules/(user)";
+import { userService } from "@/modules/(user)/services";
 import { Card } from "@/shared/components";
 import { usePolling } from "@/shared/hooks";
 import type { ReactNode } from "react";

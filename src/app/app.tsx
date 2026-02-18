@@ -2,8 +2,8 @@ import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
 import AppRouting from "./app.routing";
 import { Loading, ProgressBar } from "@/shared/components";
 import { useEffect } from "react";
-import { userService } from "@/modules/(user)";
-import { notificationService } from "@/modules/(notification)";
+import { userService } from "@/modules/(user)/services";
+import { notificationService } from "@/modules/(notification)/services";
 
 export default function App() {
    const { getSession, accessToken } = useAppSelector((state) => state.user);

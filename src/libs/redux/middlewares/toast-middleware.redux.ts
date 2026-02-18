@@ -2,7 +2,7 @@ import { snackbar } from "@/libs/snackbar/utils";
 import type { Middleware } from "@reduxjs/toolkit";
 
 //=store=>(next)
-const toastMiddlewareRedux: Middleware = (_) => (next) => (action: any) => {
+export const toastMiddlewareRedux: Middleware = (_) => (next) => (action: any) => {
    if (action?.type.endsWith("/fulfilled") && !action?.type?.includes("!")) {
       snackbar({
          title: "Success",
@@ -18,7 +18,7 @@ const toastMiddlewareRedux: Middleware = (_) => (next) => (action: any) => {
       const error = action?.payload;
       snackbar({
          title: "Error",
-         body:  error.response?.data?.error?.message || error?.message,
+         body: error.response?.data?.error?.message || error?.message,
          type: "ERROR",
          action: {
             label: "close",
@@ -28,4 +28,3 @@ const toastMiddlewareRedux: Middleware = (_) => (next) => (action: any) => {
    }
    return next(action);
 };
-export { toastMiddlewareRedux };

@@ -1,18 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { IBuilder, IService } from "@/libs/redux/types";
 import UserRepository from "../repositories/user.repository";
-import type ISessionModal from "../models/session.model";
 import type { InviteUserDTO, UpdatePasswordDTO, UpdateProfileDTO, UserStatusDTO } from "../dtos/user.dto";
+import type { ISessionModel } from "../models/session.model";
+import HttpClient from "@/libs/interceptors";
 
 const initialState = {
    accessToken: localStorage.getItem("accessToken") || null,
    getSession: {
       isLoading: true,
-      data: null as ISessionModal | null,
+      data: null as ISessionModel | null,
    },
    getUsers: {
       isLoading: true,
-      data: [] as ISessionModal[],
+      data: [] as ISessionModel[],
    },
    updateProfile: {
       isLoading: false,
@@ -22,7 +23,7 @@ const initialState = {
    },
    getSingleUser: {
       isLoading: true,
-      data: null as ISessionModal | null,
+      data: null as ISessionModel | null,
    },
    userStatus: {
       isLoading: false,
@@ -48,7 +49,7 @@ const initialState = {
    },
 };
 
-export default class UserService implements IService {
+class UserService implements IService {
    constructor(private _repo: UserRepository) {}
 
    getSession = {
@@ -307,4 +308,8 @@ export default class UserService implements IService {
    actions = this.slice.actions;
 }
 
-
+/*---------[ di container ]--------*/
+const container = new UserService(new UserRepository(new HttpClient()));
+export const userActions = container.actions;
+export const userReducer = container.reducer;
+export const userService = container as Omit<typeof container, "reducer" | "actions">;

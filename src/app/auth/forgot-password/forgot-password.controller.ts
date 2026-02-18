@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
 import { useState } from "react";
 import { useAppRouter } from "@/libs/router/hooks";
-import { authService } from "@/modules/(auth)";
+import { authService } from "@/modules/(auth)/services";
 
 const initialValues = {
    email: "",
@@ -15,6 +15,7 @@ export default function useForgotPasswordController() {
    const { forgotPassword, resetPassword } = useAppSelector((state) => state.auth);
    const [fields, setFields] = useState(initialValues);
    const router = useAppRouter();
+
    const onChange = (e: any) => {
       const { name, value } = e.target;
       setFields((prev) => ({ ...prev, [name]: value }));
@@ -39,7 +40,7 @@ export default function useForgotPasswordController() {
             authService.resetPassword.api({
                newPassword: fields.newPassword,
                otp: fields?.otp,
-            })
+            }),
          ).unwrap();
          setFields(initialValues);
          router.replace("/auth/login");

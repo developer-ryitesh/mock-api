@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
 import type { IFormikSubmit } from "@/libs/formik";
-import type { InviteUserDTO } from "@/modules/(user)/dtos/user.dto";
-import { userService } from "@/modules/(user)";
+import { type InviteUserDTO } from "@/modules/(user)/dtos";
+import { userService } from "@/modules/(user)/services";
 
 export default function useUsersController() {
    const dispatch = useAppDispatch();

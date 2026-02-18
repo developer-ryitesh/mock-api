@@ -14,8 +14,8 @@ import { Button } from "@/shared/ui";
 import { PushNotification } from "@/libs/firebase/components";
 import { useAppRouter } from "@/libs/router/hooks";
 import { TbUsersGroup } from "react-icons/tb";
-import { notificationService } from "@/modules/(notification)";
-import { userService } from "@/modules/(user)";
+import { notificationService } from "@/modules/(notification)/services";
+import { userService } from "@/modules/(user)/services";
 
 const links = [
    {

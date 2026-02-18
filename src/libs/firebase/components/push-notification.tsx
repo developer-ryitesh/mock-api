@@ -27,7 +27,9 @@ export function PushNotification({ onRefresh }: { onRefresh?: () => void }) {
    };
 
    useEffect(() => {
-      if (permission === "granted" && !cachesdDeviceToken) notificationPermissionRequest();
+      if (permission === "granted" && !cachesdDeviceToken) {
+         notificationPermissionRequest();
+      }
       return () => {};
    }, [permission, cachesdDeviceToken]);
 
@@ -49,7 +51,7 @@ export function PushNotification({ onRefresh }: { onRefresh?: () => void }) {
    return (
       <>
          {isEnable && (
-            <div className="w-full max-w-md bg-green-50 p-4 gap-3 rounded-2xl mb-3">
+            <div className="w-full bg-green-50 p-4 gap-3 rounded-2xl mb-3">
                <h2 className="text-sm font-medium">Enable Notifications</h2>
                <p className="text-xs text-gray-600">Get instant updates directly in your browser.</p>
                <Button size="xs" accent="done" variant="link" type="button" onClick={notificationPermissionRequest} className="px-0">

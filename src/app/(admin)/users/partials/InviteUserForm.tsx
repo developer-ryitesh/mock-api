@@ -2,11 +2,11 @@ import { ErrorMessageFormik, type IFormComponent } from "@/libs/formik";
 import { Button, TextField } from "@/shared/ui";
 import { useRef, useState, type ComponentType } from "react";
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import { Card, Modal, type ModalRefType } from "@/shared/components";
-import type ISessionModal from "@/modules/(user)/models/session.model";
+import type { ISessionModel } from "@/modules/(user)/models";
+import { inviteUserSchema } from "@/modules/(user)/validators";
 
-type Props = IFormComponent<ISessionModal> & {
+type Props = IFormComponent<ISessionModel> & {
    ModalButton: ComponentType<{ onOpen: () => void }>;
 };
 
@@ -30,10 +30,7 @@ export default function InviteUserForm({ loading, onSubmit, ModalButton }: Props
                   };
                   onSubmit({ ...values }, formikHelpers);
                }}
-               validationSchema={Yup.object().shape({
-                  email: Yup.string().email("Invalid email address").required("Email is required"),
-                  password: Yup.string().required("Password is required"),
-               })}>
+               validationSchema={inviteUserSchema}>
                {(formik) => (
                   <Form>
                      <Card heading="Invite User" className="border-0">

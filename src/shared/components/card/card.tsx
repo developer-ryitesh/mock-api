@@ -13,7 +13,7 @@ export function Card({ children, extra, heading, ...props }: Props) {
       <div {...props}>
          {heading && (
             <div className="flex justify-between items-center mb-3">
-               <div className="text-lg">{heading}</div>
+               <div className="text-md font-semibold uppercase">{heading}</div>
                <div>{extra}</div>
             </div>
          )}

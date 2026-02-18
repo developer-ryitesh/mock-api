@@ -1,16 +1,16 @@
 import type { IFormikSubmit } from "@/libs/formik";
 import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
-import { userService } from "@/modules/(user)";
+import { userService } from "@/modules/(user)/services";
 
 export default function useProfileController() {
    const { getSession, updateProfile, updatePassword } = useAppSelector((state) => state.user);
    const dispatch = useAppDispatch();
 
-   const onProfileUpdate = async (values: any) => {
+   const onProfileUpdate: IFormikSubmit = async (values: any) => {
       try {
          const payload = {
-            name: values.first_name,
-            lastname: values.last_name,
+            name: values.name,
+            lastname: values.lastname,
             bio: values.bio,
          };
          await dispatch(userService.updateProfile.api(payload)).unwrap();

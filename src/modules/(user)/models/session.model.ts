@@ -1,4 +1,4 @@
-export default interface ISessionModal {
+export interface ISessionModel {
    id: string;
    email: string;
    password: string;
