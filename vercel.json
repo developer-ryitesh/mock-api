@@ -1,12 +1,9 @@
 {
    "version": 2,
-   "builds": [
-      { "src": "build/index.js", "use": "@vercel/node" },
-      { "src": "build/views/**", "use": "@vercel/static" }
-   ],
+   "builds": [{ "src": "build/index.js", "use": "@vercel/node" }],
    "routes": [
       { "src": "/api/(.*)", "dest": "build/index.js" },
-      { "src": "/assets/(.*)", "dest": "/build/views/assets/$1" },
-      { "src": "/(.*)", "dest": "/build/views/index.html" }
+      { "src": "^/assets/(.*)", "dest": "/build/views/assets/$1" },
+      { "src": "/(.*)", "dest": "build/index.js" }
    ]
 }
