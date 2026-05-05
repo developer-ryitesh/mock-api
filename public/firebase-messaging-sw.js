@@ -22,7 +22,7 @@ messaging.onBackgroundMessage((payload) => {
       const notificationTitle = payload.data.title;
       const notificationOptions = {
          body: payload.data.body,
-         icon: "/logo.svg",
+         icon: "/vite.svg",
          data: {
             date: payload.data.date,
             url: payload.data.url,
@@ -42,7 +42,7 @@ self.addEventListener("notificationclick", (event) => {
    // Open the URL in a new tab
    if (url) {
       event.waitUntil(
-         clients.openWindow(url) // Open the URL when the notification is clicked
+         clients.openWindow(url), // Open the URL when the notification is clicked
       );
    }
 });
